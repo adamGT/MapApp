@@ -1,8 +1,10 @@
 package com.example.mapapp;
 
 import android.content.Context;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,14 +19,25 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.mapapp.POJO.LastKnownLocation;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,12 +54,17 @@ import java.util.concurrent.Executor;
  * create an instance of this fragment.
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback {
+
     private static final String TAG = "Location Tag";
-    private static final float DEFAULT_ZOOM = 14.0f;
+    private static final float DEFAULT_ZOOM = 2.0f;
+    private static final int REQUEST_CHECK_SETTINGS = 12;
+    public static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 99;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
-    private GoogleMap mMap;
+
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -55,14 +73,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private String mParam1;
     private String mParam2;
 
-    public static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 99;
+
+    private GoogleMap mMap;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
     private boolean mLocationPermissionGranted;
     private Location mLastKnownLocation;
 
 
-
     private OnMapFragmentInteractionListener mListener;
-    private FusedLocationProviderClient mFusedLocationProviderClient;
 
 
     public MapFragment() {
@@ -135,18 +153,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mListener = null;
     }
 
+
+
+    //Callback interface for when the map is ready to be used
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap=googleMap;
-//        LatLng blueSpace = new LatLng(9.001328, 38.782465);
-////        LatLng sydney = new LatLng(-33.852, 151.211);
-//        mMap.addMarker(new MarkerOptions().position(blueSpace)
-//                .title("Marker in BlueSpace"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(blueSpace));
+
         updateLocationUI();
         getDeviceLocation();
-
-
     }
 
     private void getLocationPermission() {
@@ -183,6 +198,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    //setting up the UI and setting the myLocationButtonEnabled (if the permission is granted)
     private void updateLocationUI() {
         if (mMap == null) {
             return;
@@ -202,12 +218,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    //getting the user location and adding a marker
+    //the Markers should not be added in this method it's better to do it in a separate method
     private void getDeviceLocation() {
-        /*
-         * Get the best and most recent location of the device, which may be null in rare
-         * cases when a location is not available.
-         */
-
         try {
             if (mLocationPermissionGranted) {
                 Task locationResult = mFusedLocationProviderClient.getLastLocation();
@@ -216,32 +229,31 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     public void onComplete(@NonNull Task task) {
 
                         if (task.isSuccessful() && task.getResult() != null) {
+
+
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = (Location) task.getResult();
 
-//                            Toast.makeText(getActivity(),"Lat "+ mLastKnownLocation.getLatitude()+ "Long "+mLastKnownLocation.getLongitude(),Toast.LENGTH_LONG).show();
+                            Location otherLocation = new Location(LocationManager.GPS_PROVIDER);
+                            otherLocation.setLatitude(9.001328);
+                            otherLocation.setLongitude(8.782465);
 
-                            LatLng myLatLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
-                            mMap.addMarker(new MarkerOptions()
-                                    .position(myLatLng)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.liya_kebede))
-                                    .title("You"));
-                            mMap.moveCamera(CameraUpdateFactory
-                                    .newLatLngZoom(myLatLng,DEFAULT_ZOOM));
-                            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+                            addMarker(otherLocation,true,"Dave", R.mipmap.dave_girma);
+
+                            addMarker(mLastKnownLocation,true,"You",R.mipmap.liya_kebede);
 
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());
-//                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(9.001328, 38.782465),DEFAULT_ZOOM));
-//                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-                            LatLng myLatLng = new LatLng(9.001328, 38.782465);
-                            mMap.addMarker(new MarkerOptions()
-                                    .position(myLatLng)
-                                    .title("BeeZ"));
-                            mMap.moveCamera(CameraUpdateFactory
-                                    .newLatLngZoom(myLatLng,DEFAULT_ZOOM));
-                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+                            Location defaultLocation = new Location(LocationManager.GPS_PROVIDER);
+                            defaultLocation.setLatitude(9.001328);
+                            defaultLocation.setLongitude(38.782465);
+                            mLastKnownLocation =  defaultLocation;
+
+                            displayLocationSettingsRequest(getActivity());
+                            addMarker(mLastKnownLocation,false,"BeeZ",R.mipmap.liya_kebede);
+
 
                         }
                     }
@@ -252,16 +264,66 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    //adds Marker on the Map
+    //the locationButtonEnabled parameter should not be included
+    private void addMarker(Location location, boolean locationButtonEnabled, String title, int imageId){
+        LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+        mMap.addMarker(new MarkerOptions()
+                .position(myLatLng)
+                .icon(BitmapDescriptorFactory.fromResource(imageId))
+                .title(title));
+        mMap.moveCamera(CameraUpdateFactory
+                .newLatLngZoom(myLatLng,DEFAULT_ZOOM));
+//        mMap.getUiSettings().setMyLocationButtonEnabled(locationButtonEnabled);
+
+
+
+    }
+
+    //requires the users permission to turn on GPS
+    private void displayLocationSettingsRequest(Context context) {
+        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)
+                .addApi(LocationServices.API).build();
+        googleApiClient.connect();
+
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(10000 / 2);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true);
+
+        PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(LocationSettingsResult result) {
+                final Status status = result.getStatus();
+                switch (status.getStatusCode()) {
+                    case LocationSettingsStatusCodes.SUCCESS:
+                        Log.i(TAG, "All location settings are satisfied.");
+                        break;
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        Log.i(TAG, "Location settings are not satisfied. Show the user a dialog to upgrade location settings ");
+
+                        try {
+                            // Show the dialog by calling startResolutionForResult(), and check the result
+                            // in onActivityResult().
+                            status.startResolutionForResult(getActivity(), REQUEST_CHECK_SETTINGS);
+                        } catch (IntentSender.SendIntentException e) {
+                            Log.i(TAG, "PendingIntent unable to execute request.");
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        Log.i(TAG, "Location settings are inadequate, and cannot be fixed here. Dialog not created.");
+                        break;
+                }
+            }
+        });
+    }
+
+
+    //Interfaces
     public interface OnMapFragmentInteractionListener {
         // TODO: Update argument type and name
         void onMapFragmentInteraction();
