@@ -3,6 +3,8 @@ package com.example.mapapp;
 import android.content.Context;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -42,6 +45,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 
 
@@ -79,6 +89,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private boolean mLocationPermissionGranted;
     private Location mLastKnownLocation;
 
+    private Geocoder geocoder;
 
     private OnMapFragmentInteractionListener mListener;
 
@@ -126,6 +137,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
+        geocoder= new Geocoder(getActivity(), Locale.getDefault());
+
         return view;
     }
 
@@ -162,6 +175,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         updateLocationUI();
         getDeviceLocation();
+
     }
 
     private void getLocationPermission() {
@@ -238,9 +252,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             otherLocation.setLatitude(9.001328);
                             otherLocation.setLongitude(8.782465);
 
-                            addMarker(otherLocation,true,"Dave", R.mipmap.dave_girma);
+                            addMarker(otherLocation,"Dave", R.mipmap.dave_girma);
 
-                            addMarker(mLastKnownLocation,true,"You",R.mipmap.liya_kebede);
+                            addMarker(mLastKnownLocation,"You",R.mipmap.liya_kebede);
+                            getCountryCode(mLastKnownLocation);
 
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
@@ -252,21 +267,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             mLastKnownLocation =  defaultLocation;
 
                             displayLocationSettingsRequest(getActivity());
-                            addMarker(mLastKnownLocation,false,"BeeZ",R.mipmap.liya_kebede);
+                            addMarker(mLastKnownLocation,"BeeZ",R.mipmap.liya_kebede);
 
+                            getCountryCode(mLastKnownLocation);
 
                         }
                     }
                 });
+
             }
-        } catch(SecurityException e)  {
+        } catch(Exception e)  {
             Log.e("Exception: %s", e.getMessage());
         }
+
+
     }
 
     //adds Marker on the Map
     //the locationButtonEnabled parameter should not be included
-    private void addMarker(Location location, boolean locationButtonEnabled, String title, int imageId){
+    private void addMarker(Location location, String title, int imageId){
         LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.addMarker(new MarkerOptions()
                 .position(myLatLng)
@@ -275,8 +294,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory
                 .newLatLngZoom(myLatLng,DEFAULT_ZOOM));
 //        mMap.getUiSettings().setMyLocationButtonEnabled(locationButtonEnabled);
-
-
 
     }
 
@@ -320,6 +337,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 }
             }
         });
+    }
+
+    private String getCountryCode(Location location){
+        List<Address> addresses ;
+        String country,countryCode;
+
+        try {
+            addresses=geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+            country = addresses.get(0).getCountryName();
+            countryCode = addresses.get(0).getCountryCode();
+            Toast.makeText(getContext(), "Country code : " +countryCode,Toast.LENGTH_LONG ).show();
+            Toast.makeText(getContext(), "Country : " +country,Toast.LENGTH_LONG ).show();
+
+
+            return countryCode;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+
+
     }
 
 
