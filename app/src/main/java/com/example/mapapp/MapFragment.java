@@ -94,7 +94,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private OnMapFragmentInteractionListener mListener;
 
 
-    public MapFragment() {
+    private MapFragment() {
         // Required empty public constructor
     }
 

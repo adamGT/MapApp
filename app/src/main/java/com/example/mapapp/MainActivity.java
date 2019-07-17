@@ -11,22 +11,30 @@ import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity implements
         MapFragment.OnMapFragmentInteractionListener,
-        HomeFragment.OnHomeFragmentInteractionListener{
+        HomeFragment.OnHomeFragmentInteractionListener,
+        RecyclerFragment.OnFragmentInteractionListener{
 
 
     private FragmentManager fm = getSupportFragmentManager();
 
     private MapFragment mapFragment = MapFragment.newInstance(null, null);
     private HomeFragment homeFragment = HomeFragment.newInstance(null, null);
+    private RecyclerFragment recyclerFragment = RecyclerFragment.newInstance(null, null);
 
     @Override
     public void onMapFragmentInteraction() {
 
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
     private enum Fragments {
         Map("MapFragment"),
-        Home("HomeFragment");
+        Home("HomeFragment"),
+        Recycler("RecyclerFragment");
 
         private final String name;
 
@@ -61,6 +69,14 @@ public class MainActivity extends AppCompatActivity implements
     public void openMapFragment(){
         fm.beginTransaction()
                 .replace(R.id.container, mapFragment, Fragments.Map.name)
+                .addToBackStack(Fragments.Home.name)
+                .commit();
+    }
+
+    @Override
+    public void onCountryClicked(){
+        fm.beginTransaction()
+                .replace(R.id.container, recyclerFragment, Fragments.Recycler.name)
                 .addToBackStack(Fragments.Home.name)
                 .commit();
     }
