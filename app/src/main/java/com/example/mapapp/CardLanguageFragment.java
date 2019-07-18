@@ -6,42 +6,35 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
-import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
+import com.example.mapapp.UIComponents.TitleView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnHomeFragmentInteractionListener} interface
+ * {@link CardLanguageFragment.CardLanguageListener} interface
  * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the {@link CardLanguageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class CardLanguageFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private static final String[] COUNTRIES = new String[] {
-            "Belgium", "France", "Italy", "Germany", "Spain"
-    };
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public Button mButton,mCountryButton,mLangageButton;
+    private TitleView titleView;
 
-    private OnHomeFragmentInteractionListener mListener;
+    private CardLanguageListener mListener;
 
-
-    public HomeFragment() {
+    public CardLanguageFragment() {
         // Required empty public constructor
     }
 
@@ -51,11 +44,11 @@ public class HomeFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
+     * @return A new instance of fragment CardLanguageFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static CardLanguageFragment newInstance(String param1, String param2) {
+        CardLanguageFragment fragment = new CardLanguageFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,54 +68,25 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view= inflater.inflate(R.layout.fragment_card_language, container, false);
 
-        mButton=view.findViewById(R.id.button);
-        mCountryButton=view.findViewById(R.id.country_list_button);
-        mLangageButton=view.findViewById(R.id.language);
+        titleView= view.findViewById(R.id.titleView);
 
-        mCountryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mListener != null){
-                    mListener.onCountryClicked();
-                }
-            }
-        });
-
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mListener != null){
-                    mListener.openMapFragment();
-                }
-            }
-        });
-
-        mLangageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mListener != null){
-                    mListener.onLanguageClicked();
-                }
-            }
-        });
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed() {
         if (mListener != null) {
-            mListener.onHomeFragmentInteraction(uri);
+            mListener.onLanguageSaved();
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnHomeFragmentInteractionListener) {
-            mListener = (OnHomeFragmentInteractionListener) context;
+        if (context instanceof CardLanguageListener) {
+            mListener = (CardLanguageListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -135,8 +99,6 @@ public class HomeFragment extends Fragment {
         mListener = null;
     }
 
-
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -147,11 +109,8 @@ public class HomeFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnHomeFragmentInteractionListener {
+    public interface CardLanguageListener {
         // TODO: Update argument type and name
-        void onHomeFragmentInteraction(Uri uri);
-        void openMapFragment();
-        void onCountryClicked();
-        void onLanguageClicked();
+        void onLanguageSaved();
     }
 }

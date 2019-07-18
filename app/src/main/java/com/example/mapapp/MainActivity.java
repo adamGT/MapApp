@@ -12,7 +12,8 @@ import androidx.fragment.app.FragmentManager;
 public class MainActivity extends AppCompatActivity implements
         MapFragment.OnMapFragmentInteractionListener,
         HomeFragment.OnHomeFragmentInteractionListener,
-        RecyclerFragment.OnFragmentInteractionListener{
+        RecyclerFragment.OnFragmentInteractionListener,
+        CardLanguageFragment.CardLanguageListener{
 
 
     private FragmentManager fm = getSupportFragmentManager();
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements
     private MapFragment mapFragment = MapFragment.newInstance(null, null);
     private HomeFragment homeFragment = HomeFragment.newInstance(null, null);
     private RecyclerFragment recyclerFragment = RecyclerFragment.newInstance(null, null);
+    private CardLanguageFragment languageFragment = CardLanguageFragment.newInstance(null, null);
 
     @Override
     public void onMapFragmentInteraction() {
@@ -34,7 +36,9 @@ public class MainActivity extends AppCompatActivity implements
     private enum Fragments {
         Map("MapFragment"),
         Home("HomeFragment"),
-        Recycler("RecyclerFragment");
+        Recycler("RecyclerFragment"),
+        Language("LanguageFragment")
+        ;
 
         private final String name;
 
@@ -66,6 +70,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onLanguageSaved() {
+
+    }
+
+    @Override
     public void openMapFragment(){
         fm.beginTransaction()
                 .replace(R.id.container, mapFragment, Fragments.Map.name)
@@ -81,6 +90,11 @@ public class MainActivity extends AppCompatActivity implements
                 .commit();
     }
 
-
-
+    @Override
+    public void onLanguageClicked() {
+        fm.beginTransaction()
+                .replace(R.id.container, languageFragment, Fragments.Language.name)
+                .addToBackStack(Fragments.Home.name)
+                .commit();
+    }
 }

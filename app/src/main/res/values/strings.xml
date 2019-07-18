@@ -5,6 +5,8 @@
     <string name="go_to_map_fragment">Open Map</string>
     <string name="go_to_map_activity">Open A Map</string>
     <string name="fragment_text">Hello Fragment</string>
+    <string name="country_list">Country Spinner</string>
+    <string name="language_list">Language</string>
 
 
     <string name="country_text">County</string>

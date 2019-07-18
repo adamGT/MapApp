@@ -1,11 +1,23 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">#3AD29F</item>
+    </style>
+
+    <style name="Widget.beez.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:theme">@style/AppTheme</item>
+        <item name="android:background">#ffffff</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="titleTextAppearance">@style/Toolbar.TitleText</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:layout_gravity">center</item>
     </style>
 
 </resources>
