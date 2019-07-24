@@ -1,16 +1,55 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">#3AD29F</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="popupMenuStyle">@style/Widget.MaterialComponents.PopupMenu</item>
+        <item name="actionOverflowMenuStyle">@style/Widget.MaterialComponents.PopupMenu.Overflow</item>
+        <item name="android:actionMenuTextAppearance">@style/ActionMenu.TitleText</item>
+        <item name="actionButtonStyle">@style/AppTheme.Wiget.ActionButton</item>
+        <item name="materialAlertDialogTheme">@style/MaterialAlertDialog</item>
+        <item name="textInputStyle">@style/TextInputLayoutStyle</item>
+        <item name="android:actionBarStyle">@style/ActionBar</item>
+        <item name="android:popupMenuStyle">@style/Widget.MaterialComponents.PopupMenu</item>
+        <item name="android:typeface">serif</item>
     </style>
 
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/white</item>
+    </style>
+
+
+
+    <!-- Actionbar style -->
+    <style name="AppTheme.Wiget.ActionButton" parent="@style/Widget.AppCompat.ActionButton">
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="MaterialAlertDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="dialogCornerRadius">10dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MyAlertTextAppearance">
+        <!-- Set text size and color of title and message here -->
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">50dp</item>
+    </style>
+
+    <style name="ActionBar" parent="@style/Widget.MaterialComponents.ActionBar.Solid">
+        <item name="android:background">@color/white</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+
+    <!-- Toolbar Style -->
     <style name="Widget.beez.Toolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:theme">@style/AppTheme</item>
-        <item name="android:background">#ffffff</item>
+        <item name="android:background">@color/white</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="titleTextAppearance">@style/Toolbar.TitleText</item>
         <item name="android:paddingRight">10dp</item>
@@ -19,5 +58,121 @@
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:layout_gravity">center</item>
     </style>
+
+    <style name="ActionMenu.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- styles for buttons -->
+    <style name="beez.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:radius">5dp</item>
+        <item name="elevation">0dp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+
+    <style name="beez.menu_text_style" parent="@style/Base.TextAppearance.AppCompat.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <!-- Styles for EditTexts inside grids -->
+    <style name="beezcard.EditText_grids" parent="@android:style/Widget.EditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:paddingLeft">8dp</item>
+    </style>
+
+
+    <style name="BeeZCard.Tag.TextView" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+
+    </style>
+
+    <style name="BeeZCard.Tag1.TextView" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintHorizontal_bias">0.0</item>
+
+    </style>
+
+
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="android:textSize">9sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="labelVisibilityMode">labeled</item>
+
+    </style>
+
+
+    <!-- styles for Textviews -->
+    <style name="beeZUI.TextView" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- styles for buttons -->
+    <style name="beeZUI.Button" parent="@android:style/Widget.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">54dp</item>
+
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!-- Styles for EditText titles inside grids -->
+    <style name="beeZUI.EditText_grid_title" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.Launcher.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.Launcher.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="Theme.Transparent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowBackground">@color/halfTransparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
 
 </resources>

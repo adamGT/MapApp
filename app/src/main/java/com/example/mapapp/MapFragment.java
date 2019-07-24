@@ -15,10 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.mapapp.Utils.MainUtills;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -79,7 +81,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private Location mLastKnownLocation;
 
     private Geocoder geocoder;
-
+    private Toolbar toolbar;
     private OnMapFragmentInteractionListener mListener;
 
 
@@ -119,6 +121,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
+
+
+        toolbar=view.findViewById(R.id.app_bar);
+        MainUtills.setUpToolbar(toolbar,getActivity());
 
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.map);

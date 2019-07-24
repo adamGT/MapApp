@@ -2,18 +2,20 @@ package com.example.mapapp;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import com.example.mapapp.Utils.MainUtills;
 
 public class MainActivity extends AppCompatActivity implements
         MapFragment.OnMapFragmentInteractionListener,
         HomeFragment.OnHomeFragmentInteractionListener,
         RecyclerFragment.OnFragmentInteractionListener,
-        CardLanguageFragment.CardLanguageListener{
+        CardLanguageFragment.CardLanguageListener,
+        UserGuideFragment.OnButtonsClickedListener{
 
 
     private FragmentManager fm = getSupportFragmentManager();
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements
     private HomeFragment homeFragment = HomeFragment.newInstance(null, null);
     private RecyclerFragment recyclerFragment = RecyclerFragment.newInstance(null, null);
     private CardLanguageFragment languageFragment = CardLanguageFragment.newInstance(null, null);
+    private UserGuideFragment userGuideFragment = UserGuideFragment.newInstance(null, null);
 
     @Override
     public void onMapFragmentInteraction() {
@@ -32,13 +35,13 @@ public class MainActivity extends AppCompatActivity implements
     public void onFragmentInteraction(Uri uri) {
 
     }
+    @Override
+    public void onSkipButtonClicked() {
+        MainUtills.navigateTo(R.id.container,homeFragment,"replace",true,fm);
+    }
 
     private enum Fragments {
-        Map("MapFragment"),
-        Home("HomeFragment"),
-        Recycler("RecyclerFragment"),
-        Language("LanguageFragment")
-        ;
+        Home("HomeFragment");
 
         private final String name;
 
@@ -63,6 +66,33 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getSupportFragmentManager().popBackStack();
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+                else {
+                    finish();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 
     @Override
     public void onHomeFragmentInteraction(Uri uri) {
@@ -76,25 +106,20 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void openMapFragment(){
-        fm.beginTransaction()
-                .replace(R.id.container, mapFragment, Fragments.Map.name)
-                .addToBackStack(Fragments.Home.name)
-                .commit();
+        MainUtills.navigateTo(R.id.container,mapFragment,"replace",true,fm);
     }
 
     @Override
     public void onCountryClicked(){
-        fm.beginTransaction()
-                .replace(R.id.container, recyclerFragment, Fragments.Recycler.name)
-                .addToBackStack(Fragments.Home.name)
-                .commit();
+        MainUtills.navigateTo(R.id.container,recyclerFragment,"replace",true,fm);
     }
 
     @Override
     public void onLanguageClicked() {
-        fm.beginTransaction()
-                .replace(R.id.container, languageFragment, Fragments.Language.name)
-                .addToBackStack(Fragments.Home.name)
-                .commit();
+        MainUtills.navigateTo(R.id.container,languageFragment,"replace",true,fm);
+    }
+    @Override
+    public void onUserGuideClicked(){
+        MainUtills.navigateTo(R.id.container,userGuideFragment,"add",true,fm);
     }
 }

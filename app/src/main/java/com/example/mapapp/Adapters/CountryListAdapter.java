@@ -1,4 +1,4 @@
-package com.example.mapapp;
+package com.example.mapapp.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mapapp.R;
 
 import java.util.List;
 

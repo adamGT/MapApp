@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#3AD29F</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#3AD29F</color>
+    <color name="textColorPrimary">#3E4A59</color>
+    <color name="toolbarIconColor">@color/textColorPrimary</color>
+    <color name="bizcolor">#03a2c2</color>
+    <color name="bizbackground">#014656</color>
+    <color name="yellow">#FF9800</color>
+    <color name="white">#FFFFFF</color>
+    <color name="DarkTextColor">#3E4A59</color>
+    <color name="custom">#696969</color>
+    <color name="beez_code_background">#3E4A59</color>
+    <color name="beezcardImageBackground">#213E4A59</color>
+    <color name="beezcardcameraBackround">#693E4A59</color>
+    <color name="beezprofessional">#F37032</color>
+    <color name="beezsocial">#1FA3C0</color>
+    <color name="dotscolor">#CCCCCC</color>
+    <color name="nameBackground">#3E4A59</color>
+    <color name="edit">#803E4A59</color>
+    <color name="cardcolor">#E3F2F6</color>
+    <color name="imagePickerBacground">#213E4A59</color>
+    <color name="lineSeparator">#803E4A59</color>
+    <color name="skip">#D6FF0000</color>
+    <color name="navigationDrawerBackground">#EBECEE</color>
+    <color name="bottomSheetOptions">#007AFF</color>
+    <color name="halfTransparent">#7f000000</color>
+
+
+
+
+    <!-- colors for Login -->
+    <color name="loginPageBackgroundColor">#FFFFFF</color>
+
+
+    <!-- colors for search view -->
+    <color name="material_light_primary_text">#DE000000</color>
+    <color name="material_light_hint_text">#61000000</color>
+    <color name="material_light_active_icon">#8A000000</color>
+    <color name="material_ripple_light">#1F000000</color>
+    <color name="divider_color">#1F000000</color>
+    <color name="active_icon_color">#8A000000</color>
+    <color name="cards_and_dialogs_color">@android:color/white</color>
+    <color name="quantum_grey_600">#757575</color>
 </resources>

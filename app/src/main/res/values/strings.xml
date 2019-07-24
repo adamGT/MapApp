@@ -7,6 +7,9 @@
     <string name="fragment_text">Hello Fragment</string>
     <string name="country_list">Country Spinner</string>
     <string name="language_list">Language</string>
+    <string name="user_guide_btn">User Guide</string>
+    <string name="skip_btn">Skip</string>
+    <string name="add_to_calendar">Add To My Calendar</string>
 
 
     <string name="country_text">County</string>

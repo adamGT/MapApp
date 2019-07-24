@@ -3,13 +3,18 @@ package com.example.mapapp;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.mapapp.UIComponents.TitleView;
+import com.example.mapapp.Utils.MainUtills;
+
+import java.util.Locale;
 
 
 /**
@@ -31,6 +36,7 @@ public class CardLanguageFragment extends Fragment {
     private String mParam2;
 
     private TitleView titleView;
+    private Toolbar toolbar;
 
     private CardLanguageListener mListener;
 
@@ -70,6 +76,9 @@ public class CardLanguageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_card_language, container, false);
 
+        toolbar=view.findViewById(R.id.app_bar);
+        MainUtills.setUpToolbar(toolbar,getActivity());
+
         titleView= view.findViewById(R.id.titleView);
 
 
@@ -97,6 +106,12 @@ public class CardLanguageFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void populateLanguages(){
+        for (Locale locale : Locale.getAvailableLocales()) {
+            Log.d("LOCALES", locale.getLanguage() + "_" + locale.getCountry() + " [" + locale.getDisplayName() + "]");
+        }
     }
 
     /**

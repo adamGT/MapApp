@@ -1,0 +1,33 @@
+package com.example.mapapp.Utils;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+public class MainUtills {
+
+    public static void navigateTo(int layoutId, Fragment fragment, String addType, boolean addToBackstack, FragmentManager fm) {
+
+        FragmentTransaction transaction = fm.beginTransaction();
+        if(addType.contentEquals("add")){
+            transaction.add(layoutId, fragment);
+        }else if(addType.contentEquals("replace")){
+            transaction.replace(layoutId, fragment);
+        }
+        if (addToBackstack) {
+            transaction.addToBackStack(""+fragment.getId());
+        }
+        transaction.commit();
+    }
+
+    public static void setUpToolbar(Toolbar toolbar, FragmentActivity mActivity) {
+        AppCompatActivity activity = (AppCompatActivity) mActivity;
+        if (activity != null) {
+            activity.setSupportActionBar(toolbar);
+            activity.getSupportActionBar().setDisplayShowTitleEnabled(true);
+        }
+    }
+}
