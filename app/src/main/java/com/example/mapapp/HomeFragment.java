@@ -4,13 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.PopupWindow;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -43,7 +40,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
 
-    public Button mButton,mCountryButton,mLangageButton,mPopUp,mAddToCalendar;
+    public Button mButton,mCountryButton,mLangageButton,mPopUp,mAddToCalendar,mStepGuide;
     private Toolbar toolbar;
     private OnHomeFragmentInteractionListener mListener;
 
@@ -93,6 +90,7 @@ public class HomeFragment extends Fragment {
         mLangageButton=view.findViewById(R.id.language);
         mPopUp=view.findViewById(R.id.popup);
         mAddToCalendar=view.findViewById(R.id.addToCalendar);
+        mStepGuide=view.findViewById(R.id.step_guide);
 
         mCountryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +124,15 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 if(mListener != null) {
                     mListener.onUserGuideClicked();
+                }
+            }
+        });
+
+        mStepGuide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null) {
+                    mListener.onStepGuideClicked();
                 }
             }
         });
@@ -194,5 +201,6 @@ public class HomeFragment extends Fragment {
         void onCountryClicked();
         void onLanguageClicked();
         void onUserGuideClicked();
+        void onStepGuideClicked();
     }
 }

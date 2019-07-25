@@ -33,7 +33,7 @@ public class UserGuideFragment extends Fragment {
     private OnButtonsClickedListener mListener;
 
 
-    public Button mButton,mCountryButton,mLangageButton,mPopUp,mSkip;
+    public Button mButton,mCountryButton,mLangageButton,mPopUp,mAddToCalendar,mSkip,mStepGuide;
     public UserGuideFragment() {
         // Required empty public constructor
     }
@@ -68,9 +68,6 @@ public class UserGuideFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //setting Transparent Theme for the fragment
-//        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.Theme_Transparent);
-//        LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
         View view =  inflater.inflate(R.layout.fragment_user_guide, container, false);
 
         mButton=view.findViewById(R.id.button);
@@ -78,18 +75,20 @@ public class UserGuideFragment extends Fragment {
         mLangageButton=view.findViewById(R.id.language);
         mPopUp=view.findViewById(R.id.popup);
         mSkip=view.findViewById(R.id.skipButton);
+        mAddToCalendar=view.findViewById(R.id.addToCalendar);
+        mStepGuide=view.findViewById(R.id.step_guide);
 
         mButton.setVisibility(View.INVISIBLE);
         mLangageButton.setVisibility(View.INVISIBLE);
         mPopUp.setVisibility(View.INVISIBLE);
+        mAddToCalendar.setVisibility(View.INVISIBLE);
+        mStepGuide.setVisibility(View.INVISIBLE);
 
         mCountryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mButton.setVisibility(View.VISIBLE);
                 mCountryButton.setVisibility(View.INVISIBLE);
-                mLangageButton.setVisibility(View.INVISIBLE);
-                mPopUp.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -97,17 +96,13 @@ public class UserGuideFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mButton.setVisibility(View.INVISIBLE);
-                mCountryButton.setVisibility(View.INVISIBLE);
                 mLangageButton.setVisibility(View.VISIBLE);
-                mPopUp.setVisibility(View.INVISIBLE);
             }
         });
 
         mLangageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mButton.setVisibility(View.INVISIBLE);
-                mCountryButton.setVisibility(View.INVISIBLE);
                 mLangageButton.setVisibility(View.INVISIBLE);
                 mPopUp.setVisibility(View.VISIBLE);
             }
@@ -116,12 +111,28 @@ public class UserGuideFragment extends Fragment {
         mPopUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCountryButton.setVisibility(View.VISIBLE);
-                mButton.setVisibility(View.INVISIBLE);
-                mLangageButton.setVisibility(View.INVISIBLE);
                 mPopUp.setVisibility(View.INVISIBLE);
+                mAddToCalendar.setVisibility(View.VISIBLE);
             }
         });
+
+        mAddToCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAddToCalendar.setVisibility(View.INVISIBLE);
+                mStepGuide.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        mStepGuide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mStepGuide.setVisibility(View.INVISIBLE);
+                mCountryButton.setVisibility(View.VISIBLE);
+            }
+        });
+
         mSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

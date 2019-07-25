@@ -54,6 +54,14 @@
         <item name="titleTextAppearance">@style/Toolbar.TitleText</item>
         <item name="android:paddingRight">10dp</item>
     </style>
+    <!-- User Guide Toolbar Style -->
+    <style name="Widget.guide.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="colorPrimary">@color/halfTransparent</item>
+        <item name="android:background">@color/halfTransparent</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="titleTextAppearance">@style/Toolbar.TitleText</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:layout_gravity">center</item>

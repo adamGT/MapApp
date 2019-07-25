@@ -15,7 +15,8 @@ public class MainActivity extends AppCompatActivity implements
         HomeFragment.OnHomeFragmentInteractionListener,
         RecyclerFragment.OnFragmentInteractionListener,
         CardLanguageFragment.CardLanguageListener,
-        UserGuideFragment.OnButtonsClickedListener{
+        UserGuideFragment.OnButtonsClickedListener,
+        StepGuideFragment.OnButtonClickedListener{
 
 
     private FragmentManager fm = getSupportFragmentManager();
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements
     private RecyclerFragment recyclerFragment = RecyclerFragment.newInstance(null, null);
     private CardLanguageFragment languageFragment = CardLanguageFragment.newInstance(null, null);
     private UserGuideFragment userGuideFragment = UserGuideFragment.newInstance(null, null);
+    private StepGuideFragment stepGuideFragment = StepGuideFragment.newInstance(null, null);
 
     @Override
     public void onMapFragmentInteraction() {
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements
     }
     @Override
     public void onSkipButtonClicked() {
-        MainUtills.navigateTo(R.id.container,homeFragment,"replace",true,fm);
+        MainUtills.navigateTo(R.id.container,homeFragment,"replace",false,fm);
     }
 
     private enum Fragments {
@@ -121,5 +123,15 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onUserGuideClicked(){
         MainUtills.navigateTo(R.id.container,userGuideFragment,"add",true,fm);
+    }
+
+    @Override
+    public void onStepGuideClicked() {
+        MainUtills.navigateTo(R.id.container,stepGuideFragment,"replace",true,fm);
+    }
+
+    @Override
+    public void onStepGuideButtonClicked(Uri uri) {
+
     }
 }
