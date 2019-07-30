@@ -1,7 +1,6 @@
-package com.example.mapapp;
+package com.example.mapapp.Features.CardLanguage;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.mapapp.R;
 import com.example.mapapp.UIComponents.TitleView;
 import com.example.mapapp.Utils.MainUtills;
 

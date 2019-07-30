@@ -8,6 +8,13 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.mapapp.Features.BeeZCard.BeeZCardFragment;
+import com.example.mapapp.Features.CardLanguage.CardLanguageFragment;
+import com.example.mapapp.Features.UserGuide.GuideFragment;
+import com.example.mapapp.Features.Map.MapFragment;
+import com.example.mapapp.Features.CardLanguage.RecyclerFragment;
+import com.example.mapapp.Features.UserGuide.StepGuideFragment;
+import com.example.mapapp.Features.UserGuide.UserGuideFragment;
 import com.example.mapapp.Utils.MainUtills;
 
 public class MainActivity extends AppCompatActivity implements
@@ -17,7 +24,8 @@ public class MainActivity extends AppCompatActivity implements
         CardLanguageFragment.CardLanguageListener,
         UserGuideFragment.OnButtonsClickedListener,
         StepGuideFragment.OnButtonClickedListener,
-        GuideFragment.OnButtonsClickedListener{
+        GuideFragment.OnButtonsClickedListener,
+        BeeZCardFragment.OnBeeZCardInteractionListener {
 
 
     private FragmentManager fm = getSupportFragmentManager();
@@ -29,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements
     private UserGuideFragment userGuideFragment = UserGuideFragment.newInstance(null, null);
     private StepGuideFragment stepGuideFragment = StepGuideFragment.newInstance(null, null);
     private GuideFragment guideFragment = GuideFragment.newInstance(null, null);
+    private BeeZCardFragment beeZCardFragment = BeeZCardFragment.newInstance(null, null);
 
 
     private enum Fragments {
@@ -132,11 +141,18 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onBeeZCardClicked() {
+        MainUtills.navigateTo(R.id.container,beeZCardFragment,"replace",true,fm);
+    }
+
+    @Override
     public void onSkipClicked() {
             getSupportFragmentManager().popBackStack();
 //            MainUtills.hideSoftKeyboard(this);
 //        MainUtills.navigateTo(R.id.container,stepGuideFragment,"replace",false,fm);
     }
+
+
     @Override
     public void onMapFragmentInteraction() {
 
@@ -146,6 +162,13 @@ public class MainActivity extends AppCompatActivity implements
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    @Override
+    public void onCardInteraction() {
+
+    }
+
+
 
 //    Tags
 

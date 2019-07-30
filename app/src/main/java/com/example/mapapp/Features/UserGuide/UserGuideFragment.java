@@ -1,15 +1,15 @@
-package com.example.mapapp;
+package com.example.mapapp.Features.UserGuide;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
+
+import com.example.mapapp.R;
 
 
 /**

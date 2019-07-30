@@ -1,4 +1,4 @@
-package com.example.mapapp;
+package com.example.mapapp.Features.Map;
 
 import android.content.Context;
 import android.content.IntentSender;
@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.mapapp.R;
 import com.example.mapapp.Utils.MainUtills;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;

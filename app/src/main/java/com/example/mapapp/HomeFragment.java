@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
 
-    public Button mButton,mCountryButton,mLangageButton,mPopUp,mAddToCalendar,mStepGuide;
+    public Button mButton,mCountryButton,mLangageButton,mPopUp,mAddToCalendar,mStepGuide,mBeeZCard;
     private Toolbar toolbar;
     private OnHomeFragmentInteractionListener mListener;
 
@@ -91,6 +91,7 @@ public class HomeFragment extends Fragment {
         mPopUp=view.findViewById(R.id.popup);
         mAddToCalendar=view.findViewById(R.id.addToCalendar);
         mStepGuide=view.findViewById(R.id.step_guide);
+        mBeeZCard=view.findViewById(R.id.BeeZCard);
 
         mCountryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +134,15 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 if(mListener != null) {
                     mListener.onStepGuideClicked();
+                }
+            }
+        });
+
+        mBeeZCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null) {
+                    mListener.onBeeZCardClicked();
                 }
             }
         });
@@ -202,5 +212,6 @@ public class HomeFragment extends Fragment {
         void onLanguageClicked();
         void onUserGuideClicked();
         void onStepGuideClicked();
+        void onBeeZCardClicked();
     }
 }

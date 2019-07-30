@@ -8,10 +8,11 @@
     <string name="country_list">Country Spinner</string>
     <string name="language_list">Language</string>
     <string name="user_guide_btn">User Guide</string>
+    <string name="beez_card_btn">BeeZCard</string>
+    <string name="focus_user_guide_btn">Focus User Guide</string>
     <string name="step_user_guide_btn">Step User Guide</string>
     <string name="skip_btn">Skip</string>
     <string name="add_to_calendar">Add To My Calendar</string>
-
 
 
     <!-- strings used in BeezServices -->

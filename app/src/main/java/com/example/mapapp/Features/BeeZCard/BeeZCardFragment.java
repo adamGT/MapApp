@@ -1,24 +1,27 @@
-package com.example.mapapp;
+package com.example.mapapp.Features.BeeZCard;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
+import com.example.mapapp.R;
+import com.example.mapapp.Utils.MainUtills;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link StepGuideFragment.OnButtonClickedListener} interface
+ * {@link BeeZCardFragment.OnBeeZCardInteractionListener} interface
  * to handle interaction events.
- * Use the {@link StepGuideFragment#newInstance} factory method to
+ * Use the {@link BeeZCardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StepGuideFragment extends Fragment {
+public class BeeZCardFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,12 +31,12 @@ public class StepGuideFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnButtonClickedListener mListener;
+    private OnBeeZCardInteractionListener mListener;
 
 
-    private EditText mTag1,mTag2,mTag3,mTag4;
+    private Toolbar toolbar;
 
-    public StepGuideFragment() {
+    public BeeZCardFragment() {
         // Required empty public constructor
     }
 
@@ -43,11 +46,11 @@ public class StepGuideFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment StepGuideFragment.
+     * @return A new instance of fragment BeeZCardFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static StepGuideFragment newInstance(String param1, String param2) {
-        StepGuideFragment fragment = new StepGuideFragment();
+    public static BeeZCardFragment newInstance(String param1, String param2) {
+        BeeZCardFragment fragment = new BeeZCardFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,53 +70,33 @@ public class StepGuideFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_step_guide, container, false);
+        View view =inflater.inflate(R.layout.fragment_bee_zcard, container, false);
 
+        toolbar=view.findViewById(R.id.app_bar);
+        MainUtills.setUpToolbar(toolbar,getActivity());
 
-        mTag1 = view.findViewById(R.id.inputOne);
-        mTag2 = view.findViewById(R.id.inputTwo);
-        mTag3 = view.findViewById(R.id.inputThree);
-        mTag4 = view.findViewById(R.id.inputFour);
 
 
         return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onStepGuidePressed() {
+    public void onButtonPressed() {
         if (mListener != null) {
-            mListener.onStepGuideButtonClicked();
+            mListener.onCardInteraction();
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnButtonClickedListener) {
-            mListener = (OnButtonClickedListener) context;
+        if (context instanceof OnBeeZCardInteractionListener) {
+            mListener = (OnBeeZCardInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
-
-    public void setmTag1(String text){
-        mTag1.setText(text);
-    }
-
-    public void setmTag2(String text){
-        mTag2.setText(text);
-    }
-
-    public void setmTag3(String text){
-        mTag3.setText(text);
-    }
-
-    public void setmTag4(String text){
-        mTag4.setText(text);
-    }
-
 
     @Override
     public void onDetach() {
@@ -131,8 +114,8 @@ public class StepGuideFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnButtonClickedListener {
+    public interface OnBeeZCardInteractionListener {
         // TODO: Update argument type and name
-        void onStepGuideButtonClicked();
+        void onCardInteraction();
     }
 }

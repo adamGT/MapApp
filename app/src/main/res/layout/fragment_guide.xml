@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/halfTransparent"
     android:clickable="true"
-    tools:context=".GuideFragment">
+    tools:context=".Features.UserGuide.GuideFragment">
 
 
     <com.google.android.material.appbar.AppBarLayout

@@ -1,8 +1,7 @@
-package com.example.mapapp;
+package com.example.mapapp.Features.UserGuide;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.mapapp.R;
 import com.example.mapapp.Utils.MainUtills;
 import com.google.android.material.textfield.TextInputLayout;
 
