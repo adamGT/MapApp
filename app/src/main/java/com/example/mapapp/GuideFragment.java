@@ -1,19 +1,28 @@
 package com.example.mapapp;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.mapapp.Utils.MainUtills;
+import com.google.android.material.textfield.TextInputLayout;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link GuideFragment.OnFragmentInteractionListener} interface
+ * {@link GuideFragment.OnButtonsClickedListener} interface
  * to handle interaction events.
  * Use the {@link GuideFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -28,7 +37,11 @@ public class GuideFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private OnButtonsClickedListener mListener;
+
+    private Button mSkipButton;
+    private EditText mTag1,mTag2,mTag3,mTag4;
+    private TextInputLayout mLTag1,mLTag2,mLTag3,mLTag4;
 
     public GuideFragment() {
         // Required empty public constructor
@@ -65,21 +78,145 @@ public class GuideFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guide, container, false);
+        View view = inflater.inflate(R.layout.fragment_guide, container, false);
+
+        mSkipButton = view.findViewById(R.id.skipButton);
+        mTag1 = view.findViewById(R.id.inputOne);
+        mTag2 = view.findViewById(R.id.inputTwo);
+        mTag3 = view.findViewById(R.id.inputThree);
+        mTag4 = view.findViewById(R.id.inputFour);
+
+        mLTag1 = view.findViewById(R.id.inputLayoutOne);
+        mLTag2 = view.findViewById(R.id.inputLayoutTwo);
+        mLTag3 = view.findViewById(R.id.inputLayoutThree);
+        mLTag4 = view.findViewById(R.id.inputLayoutFour);
+
+
+        mTag2.setVisibility(View.INVISIBLE);
+        mTag3.setVisibility(View.INVISIBLE);
+        mTag4.setVisibility(View.INVISIBLE);
+
+        mTag1.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                int result = actionId & EditorInfo.IME_MASK_ACTION;
+                switch(result) {
+                    case EditorInfo.IME_ACTION_DONE:
+                        Toast.makeText(getContext(),"Done Clicked",Toast.LENGTH_SHORT).show();
+                        return true;
+                    case EditorInfo.IME_ACTION_NEXT:
+                        Toast.makeText(getContext(),"Next Clicked",Toast.LENGTH_SHORT).show();
+
+                        if(mListener != null){
+                            mListener.editTag1(mTag1.getText().toString());
+                        }
+                        mLTag1.setVisibility(View.INVISIBLE);
+                        mTag2.setVisibility(View.VISIBLE);
+                        mTag2.requestFocus();
+                        return true;
+                }
+                return true;
+            }
+        });
+
+        mTag2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                int result = actionId & EditorInfo.IME_MASK_ACTION;
+                switch(result) {
+                    case EditorInfo.IME_ACTION_DONE:
+                        Toast.makeText(getContext(),"Done Clicked",Toast.LENGTH_SHORT).show();
+                        return true;
+                    case EditorInfo.IME_ACTION_NEXT:
+                        Toast.makeText(getContext(),"Next Clicked",Toast.LENGTH_SHORT).show();
+
+                        if(mListener != null){
+                            mListener.editTag2(mTag2.getText().toString());
+                        }
+
+                        mLTag2.setVisibility(View.INVISIBLE);
+                        mTag3.setVisibility(View.VISIBLE);
+                        mTag3.requestFocus();
+                        return true;
+                }
+                return true;
+            }
+        });
+
+        mTag3.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                int result = actionId & EditorInfo.IME_MASK_ACTION;
+                switch(result) {
+                    case EditorInfo.IME_ACTION_DONE:
+                        Toast.makeText(getContext(),"Done Clicked",Toast.LENGTH_SHORT).show();
+                        return true;
+                    case EditorInfo.IME_ACTION_NEXT:
+                        Toast.makeText(getContext(),"Next Clicked",Toast.LENGTH_SHORT).show();
+
+                        if(mListener != null){
+                            mListener.editTag3(mTag3.getText().toString());
+                        }
+
+                        mLTag3.setVisibility(View.INVISIBLE);
+                        mTag4.setVisibility(View.VISIBLE);
+                        mTag4.requestFocus();
+                        return true;
+                }
+                return true;
+            }
+        });
+
+        mTag4.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                int result = actionId & EditorInfo.IME_MASK_ACTION;
+                switch(result) {
+                    case EditorInfo.IME_ACTION_DONE:
+                        Toast.makeText(getContext(),"Done Clicked",Toast.LENGTH_SHORT).show();
+
+                        if(mListener != null){
+                            mListener.editTag4(mTag4.getText().toString());
+                        }
+
+                        onSkip();
+                        MainUtills.hideSoftKeyboard(getActivity());
+
+                        return true;
+                    case EditorInfo.IME_ACTION_NEXT:
+                        Toast.makeText(getContext(),"Next Clicked",Toast.LENGTH_LONG).show();
+//
+//                        mTag4.setVisibility(View.INVISIBLE);
+//                        mTag1.setVisibility(View.VISIBLE);
+//                        return true;
+                }
+                return true;
+            }
+        });
+
+
+        mSkipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSkip();
+            }
+        });
+
+
+        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onSkip() {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onSkipClicked();
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnButtonsClickedListener) {
+            mListener = (OnButtonsClickedListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -102,8 +239,12 @@ public class GuideFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnButtonsClickedListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onSkipClicked();
+        void editTag1(String text);
+        void editTag2(String text);
+        void editTag3(String text);
+        void editTag4(String text);
     }
 }

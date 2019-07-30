@@ -1,5 +1,9 @@
 package com.example.mapapp.Utils;
 
+import android.app.Activity;
+import android.hardware.input.InputManager;
+import android.view.inputmethod.InputMethodManager;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -29,5 +33,10 @@ public class MainUtills {
             activity.setSupportActionBar(toolbar);
             activity.getSupportActionBar().setDisplayShowTitleEnabled(true);
         }
+    }
+
+    public static void hideSoftKeyboard(Activity activity){
+            InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
     }
 }

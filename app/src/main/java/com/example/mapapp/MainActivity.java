@@ -16,7 +16,8 @@ public class MainActivity extends AppCompatActivity implements
         RecyclerFragment.OnFragmentInteractionListener,
         CardLanguageFragment.CardLanguageListener,
         UserGuideFragment.OnButtonsClickedListener,
-        StepGuideFragment.OnButtonClickedListener{
+        StepGuideFragment.OnButtonClickedListener,
+        GuideFragment.OnButtonsClickedListener{
 
 
     private FragmentManager fm = getSupportFragmentManager();
@@ -27,20 +28,8 @@ public class MainActivity extends AppCompatActivity implements
     private CardLanguageFragment languageFragment = CardLanguageFragment.newInstance(null, null);
     private UserGuideFragment userGuideFragment = UserGuideFragment.newInstance(null, null);
     private StepGuideFragment stepGuideFragment = StepGuideFragment.newInstance(null, null);
+    private GuideFragment guideFragment = GuideFragment.newInstance(null, null);
 
-    @Override
-    public void onMapFragmentInteraction() {
-
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-    @Override
-    public void onSkipButtonClicked() {
-        MainUtills.navigateTo(R.id.container,homeFragment,"replace",false,fm);
-    }
 
     private enum Fragments {
         Home("HomeFragment");
@@ -95,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+//    Fragment Management Methods
 
     @Override
     public void onHomeFragmentInteraction(Uri uri) {
@@ -128,10 +118,55 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onStepGuideClicked() {
         MainUtills.navigateTo(R.id.container,stepGuideFragment,"replace",true,fm);
+        MainUtills.navigateTo(R.id.container,guideFragment,"add",true,fm);
     }
 
     @Override
-    public void onStepGuideButtonClicked(Uri uri) {
+    public void onStepGuideButtonClicked() {
 
+    }
+
+    @Override
+    public void onSkipButtonClicked() {
+        MainUtills.navigateTo(R.id.container,homeFragment,"replace",false,fm);
+    }
+
+    @Override
+    public void onSkipClicked() {
+            getSupportFragmentManager().popBackStack();
+//            MainUtills.hideSoftKeyboard(this);
+//        MainUtills.navigateTo(R.id.container,stepGuideFragment,"replace",false,fm);
+    }
+    @Override
+    public void onMapFragmentInteraction() {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+//    Tags
+
+
+    @Override
+    public void editTag1(String text) {
+        stepGuideFragment.setmTag1(text);
+    }
+
+    @Override
+    public void editTag2(String text) {
+        stepGuideFragment.setmTag2(text);
+    }
+
+    @Override
+    public void editTag3(String text) {
+        stepGuideFragment.setmTag3(text);
+    }
+
+    @Override
+    public void editTag4(String text) {
+        stepGuideFragment.setmTag4(text);
     }
 }

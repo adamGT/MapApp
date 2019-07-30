@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 
 /**
@@ -28,6 +29,9 @@ public class StepGuideFragment extends Fragment {
     private String mParam2;
 
     private OnButtonClickedListener mListener;
+
+
+    private EditText mTag1,mTag2,mTag3,mTag4;
 
     public StepGuideFragment() {
         // Required empty public constructor
@@ -64,13 +68,22 @@ public class StepGuideFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_step_guide, container, false);
+        View view = inflater.inflate(R.layout.fragment_step_guide, container, false);
+
+
+        mTag1 = view.findViewById(R.id.inputOne);
+        mTag2 = view.findViewById(R.id.inputTwo);
+        mTag3 = view.findViewById(R.id.inputThree);
+        mTag4 = view.findViewById(R.id.inputFour);
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onStepGuidePressed() {
         if (mListener != null) {
-            mListener.onStepGuideButtonClicked(uri);
+            mListener.onStepGuideButtonClicked();
         }
     }
 
@@ -84,6 +97,23 @@ public class StepGuideFragment extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
+    public void setmTag1(String text){
+        mTag1.setText(text);
+    }
+
+    public void setmTag2(String text){
+        mTag2.setText(text);
+    }
+
+    public void setmTag3(String text){
+        mTag3.setText(text);
+    }
+
+    public void setmTag4(String text){
+        mTag4.setText(text);
+    }
+
 
     @Override
     public void onDetach() {
@@ -103,6 +133,6 @@ public class StepGuideFragment extends Fragment {
      */
     public interface OnButtonClickedListener {
         // TODO: Update argument type and name
-        void onStepGuideButtonClicked(Uri uri);
+        void onStepGuideButtonClicked();
     }
 }

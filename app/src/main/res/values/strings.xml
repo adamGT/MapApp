@@ -13,6 +13,28 @@
     <string name="add_to_calendar">Add To My Calendar</string>
 
 
+
+    <!-- strings used in BeezServices -->
+    <string name="beez_employee_onboarding"><b>Employee On-Boarding</b></string>
+    <string name="beez_buro_modules"><b>BeeZ Buro Modules</b></string>
+    <string name="beez_save"><b>Save</b></string>
+    <string name="beez_full_name"><b>Full Name</b></string>
+    <string name="beez_job">Job Title/ Position</string>
+    <string name="beez_about">About</string>
+    <string name="beez_about_description">Here the user brief bio will be shown</string>
+    <string name="tags1_default_title">Projects</string>
+    <string name="tag2_default_title">Expertise</string>
+    <string name="beez_card_textview_grid1"># Tag 1</string>
+    <string name="beez_card_textview_grid2"># Tag 2</string>
+    <string name="beez_card_textview_grid3"># Tag 3</string>
+    <string name="beez_user_photo">Photo of the user \n Goes Here</string>
+    <string name="beez_expertise">Expertise</string>
+    <string name="beez_projects">Projects</string>
+    <string name="beez_smaple_name">Amanda Freeman</string>
+    <string name="beez_sample_job">Graphic Designer</string>
+    <string name="beez_sample_distance">432 miles away</string>
+
+
     <string name="country_text">County</string>
 
     <!-- TODO: Remove or change this placeholder text -->
