@@ -31,9 +31,13 @@
     <string name="beez_user_photo">Photo of the user \n Goes Here</string>
     <string name="beez_expertise">Expertise</string>
     <string name="beez_projects">Projects</string>
-    <string name="beez_smaple_name">Amanda Freeman</string>
-    <string name="beez_sample_job">Graphic Designer</string>
-    <string name="beez_sample_distance">432 miles away</string>
+    <string name="beez_smaple_name">Your Full Name</string>
+    <string name="beez_sample_job">Job Title/Position</string>
+
+
+
+    <string name="beez_congratulations_tip">You are all set. Time to meet \n and engage with your Colleagues.</string>
+    <string name="beez_start_beezcovery">Start BeeZCovery</string>
 
 
     <string name="country_text">County</string>

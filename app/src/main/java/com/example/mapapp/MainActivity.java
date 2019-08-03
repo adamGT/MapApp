@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.mapapp.Features.BeeZCard.BeeZCardFragment;
+import com.example.mapapp.Features.BeeZCard.BeeZCardGuideFragment;
+import com.example.mapapp.Features.BeeZCard.CongratulationsFragment;
 import com.example.mapapp.Features.CardLanguage.CardLanguageFragment;
 import com.example.mapapp.Features.UserGuide.GuideFragment;
 import com.example.mapapp.Features.Map.MapFragment;
@@ -25,7 +27,9 @@ public class MainActivity extends AppCompatActivity implements
         UserGuideFragment.OnButtonsClickedListener,
         StepGuideFragment.OnButtonClickedListener,
         GuideFragment.OnButtonsClickedListener,
-        BeeZCardFragment.OnBeeZCardInteractionListener {
+        BeeZCardFragment.OnBeeZCardInteractionListener,
+        BeeZCardGuideFragment.OnBeeZCardGuideInteractionListener,
+        CongratulationsFragment.OnCongratulationsListener {
 
 
     private FragmentManager fm = getSupportFragmentManager();
@@ -38,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements
     private StepGuideFragment stepGuideFragment = StepGuideFragment.newInstance(null, null);
     private GuideFragment guideFragment = GuideFragment.newInstance(null, null);
     private BeeZCardFragment beeZCardFragment = BeeZCardFragment.newInstance(null, null);
+    private BeeZCardGuideFragment beeZCardGuideFragment = BeeZCardGuideFragment.newInstance(null, null);
+    private CongratulationsFragment congratulationsFragment = CongratulationsFragment.newInstance(null, null);
 
 
     private enum Fragments {
@@ -143,6 +149,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onBeeZCardClicked() {
         MainUtills.navigateTo(R.id.container,beeZCardFragment,"replace",true,fm);
+        MainUtills.navigateTo(R.id.container,beeZCardGuideFragment,"add",true,fm);
+
     }
 
     @Override
@@ -152,6 +160,15 @@ public class MainActivity extends AppCompatActivity implements
 //        MainUtills.navigateTo(R.id.container,stepGuideFragment,"replace",false,fm);
     }
 
+
+
+//    For Congratulations Fragment
+
+
+    @Override
+    public void onContinueClicked() {
+        MainUtills.navigateTo(R.id.container,beeZCardFragment,"replace",false,fm);
+    }
 
     @Override
     public void onMapFragmentInteraction() {
@@ -191,5 +208,69 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void editTag4(String text) {
         stepGuideFragment.setmTag4(text);
+    }
+
+
+//    For BeeZCardGuide Fragment
+
+
+    @Override
+    public void onFancyButtonClicked() {
+
+    }
+
+    @Override
+    public void onUserNameClicked() {
+
+    }
+
+    @Override
+    public void onPossitionClicked() {
+
+    }
+
+    @Override
+    public void onBioClicked() {
+
+    }
+
+    @Override
+    public void onFirstTagOneClicked() {
+
+    }
+
+    @Override
+    public void onFirstTagTwoClicked() {
+
+    }
+
+    @Override
+    public void onFirstTagThreeClicked() {
+
+    }
+
+    @Override
+    public void onSecondTagOneClicked() {
+
+    }
+
+    @Override
+    public void onSecondTagTwoClicked() {
+
+    }
+
+    @Override
+    public void onSecondTagThreeClicked() {
+
+    }
+
+    @Override
+    public void onGuideSkipClicked() {
+        getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void onGuideFinished() {
+        MainUtills.navigateTo(R.id.container,congratulationsFragment,"replace",false,fm);
     }
 }
