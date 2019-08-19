@@ -1,5 +1,6 @@
 package com.example.mapapp;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -150,6 +151,14 @@ public class MainActivity extends AppCompatActivity implements
     public void onBeeZCardClicked() {
         MainUtills.navigateTo(R.id.container,beeZCardFragment,"replace",true,fm);
         MainUtills.navigateTo(R.id.container,beeZCardGuideFragment,"add",true,fm);
+
+    }
+
+    @Override
+    public void onShowCaseClicked() {
+        Intent intent = new Intent(MainActivity.this, ShowCaseActivity.class);
+        finishAffinity();
+        startActivity(intent);
 
     }
 

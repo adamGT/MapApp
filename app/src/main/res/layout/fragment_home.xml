@@ -99,6 +99,18 @@
         app:layout_constraintVertical_bias="0.70" />
 
     <Button
+        android:id="@+id/show_case_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_case_btn_txt"
+        app:layout_constraintBottom_toTopOf="@+id/addToCalendar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BeeZCard"
+        app:layout_constraintVertical_bias="0.110000014" />
+
+    <Button
         android:id="@+id/addToCalendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,6 +120,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bar_layout"
-        app:layout_constraintVertical_bias="0.70" />
+        app:layout_constraintVertical_bias="0.90" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
