@@ -13,6 +13,7 @@ import com.example.mapapp.Features.BeeZCard.BeeZCardFragment;
 import com.example.mapapp.Features.BeeZCard.BeeZCardGuideFragment;
 import com.example.mapapp.Features.BeeZCard.CongratulationsFragment;
 import com.example.mapapp.Features.CardLanguage.CardLanguageFragment;
+import com.example.mapapp.Features.Dragging.ViewDraggingFragment;
 import com.example.mapapp.Features.UserGuide.GuideFragment;
 import com.example.mapapp.Features.Map.MapFragment;
 import com.example.mapapp.Features.CardLanguage.RecyclerFragment;
@@ -30,7 +31,8 @@ public class MainActivity extends AppCompatActivity implements
         GuideFragment.OnButtonsClickedListener,
         BeeZCardFragment.OnBeeZCardInteractionListener,
         BeeZCardGuideFragment.OnBeeZCardGuideInteractionListener,
-        CongratulationsFragment.OnCongratulationsListener {
+        CongratulationsFragment.OnCongratulationsListener,
+        ViewDraggingFragment.OnDraggListener {
 
 
     private FragmentManager fm = getSupportFragmentManager();
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements
     private BeeZCardFragment beeZCardFragment = BeeZCardFragment.newInstance(null, null);
     private BeeZCardGuideFragment beeZCardGuideFragment = BeeZCardGuideFragment.newInstance(null, null);
     private CongratulationsFragment congratulationsFragment = CongratulationsFragment.newInstance(null, null);
+    private ViewDraggingFragment viewDraggingFragment = ViewDraggingFragment.newInstance(null, null);
 
 
     private enum Fragments {
@@ -163,12 +166,24 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onDraggingClicked() {
+        MainUtills.navigateTo(R.id.container,viewDraggingFragment,"replace",false,fm);
+    }
+
+    @Override
     public void onSkipClicked() {
             getSupportFragmentManager().popBackStack();
 //            MainUtills.hideSoftKeyboard(this);
 //        MainUtills.navigateTo(R.id.container,stepGuideFragment,"replace",false,fm);
     }
 
+
+//    ViewDragging Fragment
+
+    @Override
+    public void onDragged() {
+
+    }
 
 
 //    For Congratulations Fragment
