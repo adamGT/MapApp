@@ -1,6 +1,7 @@
 package com.example.mapapp.Features.Dragging;
 
 import android.content.Context;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -10,8 +11,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mapapp.Adapters.BackCardAdapter;
 import com.example.mapapp.R;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link androidx.fragment.app.Fragment} subclass.
@@ -34,6 +43,9 @@ public class ViewDraggingFragment extends Fragment implements View.OnTouchListen
     private String mParam2;
 
     private ImageButton imageView1,imageView2,imageView3,imageView4,imageView5,imageView6,imageView7,imageView8;
+    private RecyclerView recyclerView;
+
+    private BackCardAdapter adapter;
 
     private OnDraggListener mListener;
 
@@ -82,6 +94,8 @@ public class ViewDraggingFragment extends Fragment implements View.OnTouchListen
         imageView7 = view.findViewById(R.id.my_image7);
         imageView8 = view.findViewById(R.id.my_image8);
 
+        recyclerView = view.findViewById(R.id.back_card_list);
+
         imageView1.setOnTouchListener(this);
         imageView2.setOnTouchListener(this);
         imageView3.setOnTouchListener(this);
@@ -104,15 +118,37 @@ public class ViewDraggingFragment extends Fragment implements View.OnTouchListen
                 DX = v.getX() - event.getRawX();
                 DY = v.getY() - event.getRawY();
 
+
+
                 break;
             case MotionEvent.ACTION_MOVE :
                 v.setX(event.getRawX()+DX);
                 v.setY(event.getRawY()+DY);
 
                 break;
+            case MotionEvent.ACTION_UP :
+                v.setVisibility(View.GONE);
+
+                break;
         }
 
         return false;
+    }
+
+    private void configureRecyclerView(RecyclerView countryList,String backCardItem){
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        countryList.setLayoutManager(mLayoutManager);
+
+        if(backCardItem != null) {
+            List<String> backCardItems =new ArrayList<>();
+            backCardItems.add(backCardItem);
+
+            adapter = new BackCardAdapter(backCardItems);
+
+            countryList.setAdapter(adapter);
+
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public void onButtonPressed() {

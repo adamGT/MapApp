@@ -14,6 +14,7 @@
     <string name="skip_btn">Skip</string>
     <string name="show_case_btn_txt">ShowCase</string>
     <string name="dragg_btn_txt">Dragging</string>
+    <string name="file_btn_txt">File Picker</string>
     <string name="add_to_calendar">Add To My Calendar</string>
 
 

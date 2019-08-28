@@ -121,6 +121,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/show_case_button"
         app:layout_constraintVertical_bias="0.110000014" />
+    <Button
+        android:id="@+id/file_picker_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/file_btn_txt"
+        app:layout_constraintBottom_toTopOf="@+id/addToCalendar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dragg_button"
+        app:layout_constraintVertical_bias="0.110000014" />
 
     <Button
         android:id="@+id/addToCalendar"
@@ -132,6 +143,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bar_layout"
-        app:layout_constraintVertical_bias="0.90" />
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
