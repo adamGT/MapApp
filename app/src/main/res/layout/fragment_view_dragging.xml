@@ -25,112 +25,170 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
+    <TextView
+        android:id="@+id/tvEmptyListTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/halfTransparent"
+        android:gravity="center"
+        android:text="Top List is Empty!"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/rvBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rvTop" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/back_card_list"
+        android:id="@+id/rvTop"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/halfTransparent"
-        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        app:layout_constraintBottom_toTopOf="@+id/rvBottom"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bar_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/bar_layout"
+        app:layout_constraintVertical_bias="1.0" />
 
-
-    <ImageButton
-        android:id="@+id/my_image1"
+    <TextView
+        android:id="@+id/tvEmptyListBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:src="@mipmap/pc_pic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/my_image6"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:background="#cccccc"
+        android:gravity="center"
+        android:text="Bottom List is Empty!"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/rvBottom"
+        app:layout_constraintEnd_toEndOf="@+id/rvBottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rvBottom" />
 
-    <ImageButton
-        android:id="@+id/my_image2"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBottom"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:src="@mipmap/pool_pic"
-        app:layout_constraintBottom_toTopOf="@+id/my_image7"
-        app:layout_constraintEnd_toStartOf="@+id/my_image3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/my_image5" />
-
-    <ImageButton
-        android:id="@+id/my_image3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:src="@mipmap/run_pic"
-        app:layout_constraintBottom_toTopOf="@+id/my_image8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/my_image2" />
-
-    <ImageButton
-        android:id="@+id/my_image4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:src="@mipmap/car_pic"
-        app:layout_constraintBottom_toTopOf="@+id/my_image1"
-        app:layout_constraintEnd_toStartOf="@+id/my_image5"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/my_image5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:src="@mipmap/cycle_pic"
-        app:layout_constraintBottom_toTopOf="@+id/my_image6"
-        app:layout_constraintEnd_toStartOf="@+id/my_image2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/my_image4" />
-
-    <ImageButton
-        android:id="@+id/my_image6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:src="@mipmap/motor_pic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/my_image7"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/my_image1" />
-
-    <ImageButton
-        android:id="@+id/my_image7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:src="@mipmap/train_pic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/my_image8"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/my_image6" />
-
-    <ImageButton
-        android:id="@+id/my_image8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:src="@mipmap/dave_girma"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/my_image7" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="top"
-        app:constraint_referenced_ids="my_image2,my_image7,my_image4,my_image1,my_image8,my_image3,my_image5,my_image6"
-        tools:layout_editor_absoluteY="731dp" />
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/my_image1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:layout_marginEnd="24dp"-->
+<!--        android:src="@mipmap/pc_pic"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/my_image6"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/my_image2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:src="@mipmap/pool_pic"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/my_image7"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/my_image5" />-->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/my_image3"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:layout_marginEnd="24dp"-->
+<!--        android:src="@mipmap/run_pic"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/my_image8"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/my_image2" />-->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/my_image4"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:src="@mipmap/car_pic"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/my_image1"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/my_image5"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:src="@mipmap/cycle_pic"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/my_image6"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/barrier2" />-->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/my_image6"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:layout_marginEnd="24dp"-->
+<!--        android:src="@mipmap/motor_pic"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/my_image7"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/barrier2" />-->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/my_image7"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:layout_marginEnd="24dp"-->
+<!--        android:src="@mipmap/train_pic"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/my_image8"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/barrier3" />-->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/my_image8"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:layout_marginEnd="24dp"-->
+<!--        android:src="@mipmap/dave_girma"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/barrier4" />-->
+
+<!--    <androidx.constraintlayout.widget.Barrier-->
+<!--        android:id="@+id/barrier"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:barrierDirection="top"-->
+<!--        app:constraint_referenced_ids=",my_image5,my_image6,my_image2,my_image8,my_image3,my_image1,my_image7,my_image4"-->
+<!--        tools:layout_editor_absoluteY="731dp" />-->
+
+<!--    <androidx.constraintlayout.widget.Barrier-->
+<!--        android:id="@+id/barrier2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:barrierDirection="right"-->
+<!--        app:constraint_referenced_ids="my_image1,my_image4"-->
+<!--        tools:layout_editor_absoluteX="411dp" />-->
+
+<!--    <androidx.constraintlayout.widget.Barrier-->
+<!--        android:id="@+id/barrier3"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:barrierDirection="right"-->
+<!--        app:constraint_referenced_ids="my_image5,my_image6"-->
+<!--        tools:layout_editor_absoluteX="411dp" />-->
+
+<!--    <androidx.constraintlayout.widget.Barrier-->
+<!--        android:id="@+id/barrier4"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:barrierDirection="right"-->
+<!--        app:constraint_referenced_ids="my_image2,my_image7"-->
+<!--        tools:layout_editor_absoluteX="411dp" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

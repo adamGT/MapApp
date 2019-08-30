@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onDraggingClicked() {
-        MainUtills.navigateTo(R.id.container,viewDraggingFragment,"replace",false,fm);
+        MainUtills.navigateTo(R.id.container,viewDraggingFragment,"replace",true,fm);
     }
 
     @Override
