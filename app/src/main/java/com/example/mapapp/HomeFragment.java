@@ -40,7 +40,9 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
 
-    public Button mButton,mCountryButton,mLangageButton,mPopUp,mAddToCalendar,mStepGuide,mBeeZCard,mShowcase,mDragging,mFilePicker,mCoordinator;
+    public Button mButton,mCountryButton,mLangageButton,mPopUp,mAddToCalendar,
+            mStepGuide,mBeeZCard,mShowcase,mDragging,mFilePicker,mCoordinator,
+            mCardRecycler;
     private Toolbar toolbar;
     private OnHomeFragmentInteractionListener mListener;
 
@@ -96,6 +98,7 @@ public class HomeFragment extends Fragment {
         mDragging=view.findViewById(R.id.dragg_button);
         mFilePicker=view.findViewById(R.id.file_picker_button);
         mCoordinator=view.findViewById(R.id.coordinator_button);
+        mCardRecycler=view.findViewById(R.id.grid_card_button);
 
         mCountryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,6 +196,15 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        mCardRecycler.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null){
+                    mListener.onCardRecyclerClicked();
+                }
+            }
+        });
+
         return view;
     }
 
@@ -257,5 +269,6 @@ public class HomeFragment extends Fragment {
         void onDraggingClicked();
         void onFilePickerClicked();
         void onCoordinatorClicked();
+        void onCardRecyclerClicked();
     }
 }

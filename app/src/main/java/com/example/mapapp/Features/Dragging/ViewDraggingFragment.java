@@ -105,37 +105,6 @@ public class ViewDraggingFragment extends Fragment implements Listener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_view_dragging, container, false);
-//        ButterKnife.bind(this,view);
-
-//        imageView1 = view.findViewById(R.id.my_image1);
-//        imageView2 = view.findViewById(R.id.my_image2);
-//        imageView3 = view.findViewById(R.id.my_image3);
-//        imageView4 = view.findViewById(R.id.my_image4);
-//        imageView5 = view.findViewById(R.id.my_image5);
-//        imageView6 = view.findViewById(R.id.my_image6);
-//        imageView7 = view.findViewById(R.id.my_image7);
-//        imageView8 = view.findViewById(R.id.my_image8);
-
-//        recyclerView = view.findViewById(R.id.back_card_list);
-//        configureRecyclerView(recyclerView);
-
-//        imageView1.setImageResource(R.mipmap.car_pic);
-//        imageView2.setImageResource(R.mipmap.run_pic);
-//        imageView3.setImageResource(R.mipmap.train_pic);
-//        imageView4.setImageResource(R.mipmap.motor_pic);
-//        imageView5.setImageResource(R.mipmap.dave_girma);
-//        imageView6.setImageResource(R.mipmap.cycle_pic);
-//        imageView7.setImageResource(R.mipmap.pc_pic);
-//        imageView8.setImageResource(R.mipmap.liya_kebede);
-//
-//        imageView1.setOnTouchListener(this);
-//        imageView2.setOnTouchListener(this);
-//        imageView3.setOnTouchListener(this);
-//        imageView4.setOnTouchListener(this);
-//        imageView5.setOnTouchListener(this);
-//        imageView6.setOnTouchListener(this);
-//        imageView7.setOnTouchListener(this);
-//        imageView8.setOnTouchListener(this);
 
         rvTop = view.findViewById(R.id.rvTop);
         rvBottom = view.findViewById(R.id.rvBottom);
@@ -187,83 +156,6 @@ public class ViewDraggingFragment extends Fragment implements Listener {
         rvBottom.setOnDragListener(bottomListAdapter.getDragInstance());
     }
 
-
-
-//    @Override
-//    public boolean onTouch(View v, MotionEvent event) {
-//        return false;
-//    }
-
-//        @Override
-//    public boolean onTouch(View v, MotionEvent event) {
-//
-//        switch (event.getAction()){
-//            case MotionEvent.ACTION_DOWN :
-//                DX = v.getX() - event.getRawX();
-//                DY = v.getY() - event.getRawY();
-//
-//                break;
-//            case MotionEvent.ACTION_MOVE :
-//                v.setX(event.getRawX()+DX);
-//                v.setY(event.getRawY()+DY);
-//
-//                break;
-//            case MotionEvent.ACTION_UP :
-//                v.setVisibility(View.GONE);
-//
-//                switch (v.getId()){
-//                    case R.id.my_image1:
-//                        addItemToList("Image 1",R.mipmap.car_pic);
-//                        break;
-//                    case R.id.my_image2:
-//                        addItemToList("Image 2",R.mipmap.run_pic);
-//                        break;
-//                    case R.id.my_image3:
-//                        addItemToList("Image 3",R.mipmap.train_pic);
-//                        break;
-//                    case R.id.my_image4:
-//                        addItemToList("Image 4",R.mipmap.motor_pic);
-//                        break;
-//                    case R.id.my_image5:
-//                        addItemToList("Image 5",R.mipmap.dave_girma);
-//                        break;
-//                    case R.id.my_image6:
-//                        addItemToList("Image 6",R.mipmap.cycle_pic);
-//                        break;
-//                    case R.id.my_image7:
-//                        addItemToList("Image 7",R.mipmap.pc_pic);
-//                        break;
-//                    case R.id.my_image8:
-//                        addItemToList("Image 8",R.mipmap.liya_kebede);
-//                        break;
-//                }
-//
-//                break;
-//        }
-//
-//        return false;
-//    }
-
-
-
-    private void configureRecyclerView(RecyclerView countryList){
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        countryList.setLayoutManager(mLayoutManager);
-
-        adapter = new BackCardAdapter(getContext());
-        countryList.setAdapter(adapter);
-
-    }
-
-    private void addItemToList(String backCardItemName,int backCardItemIcon){
-        if(backCardItemName != null) {
-            BackCardItem backCardItem = new BackCardItem(backCardItemName,backCardItemIcon);
-
-            adapter.addToList(backCardItem);
-
-            adapter.notifyDataSetChanged();
-        }
-    }
 
 
     @Override

@@ -18,6 +18,8 @@
     <string name="coordinator_btn_txt">Coordinator</string>
     <string name="add_to_calendar">Add To My Calendar</string>
 
+    <string name="card_recycler">Card Recycler</string>
+
 
     <!-- strings used in BeezServices -->
     <string name="beez_employee_onboarding"><b>Employee On-Boarding</b></string>
