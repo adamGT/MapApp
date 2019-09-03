@@ -13,7 +13,9 @@ import com.example.mapapp.Features.BeeZCard.BeeZCardFragment;
 import com.example.mapapp.Features.BeeZCard.BeeZCardGuideFragment;
 import com.example.mapapp.Features.BeeZCard.CongratulationsFragment;
 import com.example.mapapp.Features.CardLanguage.CardLanguageFragment;
+import com.example.mapapp.Features.CoordinatorFeatures.CoordinatorBasicFragment;
 import com.example.mapapp.Features.Dragging.ViewDraggingFragment;
+import com.example.mapapp.Features.FilePicker.FilePickerFragment;
 import com.example.mapapp.Features.UserGuide.GuideFragment;
 import com.example.mapapp.Features.Map.MapFragment;
 import com.example.mapapp.Features.CardLanguage.RecyclerFragment;
@@ -32,7 +34,9 @@ public class MainActivity extends AppCompatActivity implements
         BeeZCardFragment.OnBeeZCardInteractionListener,
         BeeZCardGuideFragment.OnBeeZCardGuideInteractionListener,
         CongratulationsFragment.OnCongratulationsListener,
-        ViewDraggingFragment.OnDraggListener {
+        ViewDraggingFragment.OnDraggListener,
+        FilePickerFragment.OnImagePickerListener,
+        CoordinatorBasicFragment.OnCoordinatorActionListener {
 
 
     private FragmentManager fm = getSupportFragmentManager();
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements
     private BeeZCardGuideFragment beeZCardGuideFragment = BeeZCardGuideFragment.newInstance(null, null);
     private CongratulationsFragment congratulationsFragment = CongratulationsFragment.newInstance(null, null);
     private ViewDraggingFragment viewDraggingFragment = ViewDraggingFragment.newInstance(null, null);
+    private FilePickerFragment filePickerFragment = FilePickerFragment.newInstance(null, null);
+    private CoordinatorBasicFragment coordinatorBasicFragment = CoordinatorBasicFragment.newInstance(null, null);
 
 
     private enum Fragments {
@@ -171,14 +177,29 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onFilePickerClicked() {
+        MainUtills.navigateTo(R.id.container,filePickerFragment,"replace",true,fm);
+    }
+
+    @Override
+    public void onCoordinatorClicked() {
+        MainUtills.navigateTo(R.id.container,coordinatorBasicFragment,"replace",true,fm);
+    }
+
+    @Override
     public void onSkipClicked() {
             getSupportFragmentManager().popBackStack();
 //            MainUtills.hideSoftKeyboard(this);
 //        MainUtills.navigateTo(R.id.container,stepGuideFragment,"replace",false,fm);
     }
 
+    @Override
+    public void onImagePickerInteraction() {
 
-//    ViewDragging Fragment
+    }
+
+
+    //    ViewDragging Fragment
 
     @Override
     public void onDragged() {

@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
 
-    public Button mButton,mCountryButton,mLangageButton,mPopUp,mAddToCalendar,mStepGuide,mBeeZCard,mShowcase,mDragging;
+    public Button mButton,mCountryButton,mLangageButton,mPopUp,mAddToCalendar,mStepGuide,mBeeZCard,mShowcase,mDragging,mFilePicker,mCoordinator;
     private Toolbar toolbar;
     private OnHomeFragmentInteractionListener mListener;
 
@@ -94,6 +94,8 @@ public class HomeFragment extends Fragment {
         mBeeZCard=view.findViewById(R.id.BeeZCard);
         mShowcase=view.findViewById(R.id.show_case_button);
         mDragging=view.findViewById(R.id.dragg_button);
+        mFilePicker=view.findViewById(R.id.file_picker_button);
+        mCoordinator=view.findViewById(R.id.coordinator_button);
 
         mCountryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,6 +168,24 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+
+        mFilePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null) {
+                    mListener.onFilePickerClicked();
+                }
+            }
+        });
+
+        mCoordinator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null) {
+                    mListener.onCoordinatorClicked();
+                }
+            }
+        });
         mAddToCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -235,5 +255,7 @@ public class HomeFragment extends Fragment {
         void onBeeZCardClicked();
         void onShowCaseClicked();
         void onDraggingClicked();
+        void onFilePickerClicked();
+        void onCoordinatorClicked();
     }
 }
