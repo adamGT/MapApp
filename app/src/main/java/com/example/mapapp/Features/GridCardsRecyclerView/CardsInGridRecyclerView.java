@@ -18,6 +18,7 @@ import com.example.mapapp.Adapters.GridCardAdapter;
 import com.example.mapapp.POJO.Module;
 import com.example.mapapp.R;
 import com.example.mapapp.Utils.ItemTouchListener;
+import com.example.mapapp.storage.SharedPreferenceManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,14 @@ import java.util.List;
  */
 public class CardsInGridRecyclerView extends Fragment {
 
+    public enum LaunchMode {
+        SETUP,
+        EDIT
+    }
 
+    private static final String ARG_LAUNCH_MODE = " ";
+
+    private Context mContext;
     private RecyclerView recyclerView;
 
     private List<Module> moduleList = new ArrayList<>();
@@ -41,13 +49,16 @@ public class CardsInGridRecyclerView extends Fragment {
 
     private OnGridCardsListener mListener;
 
+    private String setup;
+
     private CardsInGridRecyclerView() {
         // Required empty public constructor
     }
 
-    public static CardsInGridRecyclerView newInstance() {
+    public static CardsInGridRecyclerView newInstance(LaunchMode launchMode) {
         CardsInGridRecyclerView fragment = new CardsInGridRecyclerView();
         Bundle args = new Bundle();
+        args.putInt(ARG_LAUNCH_MODE, launchMode.ordinal());
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,6 +67,7 @@ public class CardsInGridRecyclerView extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            setup = CardsInGridRecyclerView.LaunchMode.values()[getArguments().getInt(ARG_LAUNCH_MODE)].name();
         }
     }
 
@@ -64,16 +76,30 @@ public class CardsInGridRecyclerView extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cards_in_grid_recycler_view, container, false);
 
+        mContext = getContext();
+
         recyclerView = view.findViewById(R.id.grid_card_recycler);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL,true));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL,false));
 
-        moduleList.add(new Module("Module A",R.color.beezprofessional));
-        moduleList.add(new Module("Module B",R.color.beez_code_background));
+        if(SharedPreferenceManager.getInstance(mContext).getIsFirstTime() == 0) {
+            moduleList.clear();
 
-        adapter = new GridCardAdapter(getContext(),moduleList);
+            moduleList.add(new Module(" ", R.drawable.add_module_icon));
 
-        recyclerView.setAdapter(adapter);
+        }else {
+                moduleList.clear();
+
+                moduleList.add(new Module("Employee On-Boarding", R.drawable.emp_on_boarding_module));
+                moduleList.add(new Module("Application Submission", R.drawable.app_submission_module));
+
+        }
+
+        if(adapter == null) {
+            adapter = new GridCardAdapter(getContext(), moduleList);
+        }
+
+            recyclerView.setAdapter(adapter);
 
 
 
@@ -81,9 +107,20 @@ public class CardsInGridRecyclerView extends Fragment {
             @Override
             public void onClick(View view, int position) {
 
-//                Toast.makeText(getContext(),moduleList.get(position).getModuleName(),Toast.LENGTH_LONG).show();
                 if(!(mListener == null)){
-                    mListener.onItemClicked(moduleList.get(position).getModuleName());
+                    if(SharedPreferenceManager.getInstance(mContext).getIsFirstTime() == 0){
+
+                        SharedPreferenceManager.getInstance(mContext).isFirstTime(1);
+                        moduleList.clear();
+
+                        moduleList.add(new Module(" ", R.drawable.emp_on_boarding_module));
+                        moduleList.add(new Module(" ", R.drawable.app_submission_module));
+
+                        adapter = new GridCardAdapter(getContext(), moduleList);
+                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                    } else mListener.onItemClicked(moduleList.get(position).getModuleName());
+
                 }
             }
 

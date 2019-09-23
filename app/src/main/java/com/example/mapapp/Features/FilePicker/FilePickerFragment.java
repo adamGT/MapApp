@@ -2,20 +2,29 @@ package com.example.mapapp.Features.FilePicker;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.mapapp.Networking.NetworkImplementations;
+import com.example.mapapp.Networking.ReturnValues.ReturnUploadPhoto;
 import com.example.mapapp.R;
 import com.example.mapapp.Utils.FileUtils;
+import com.example.mapapp.storage.SharedPreferenceManager;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +51,12 @@ public class FilePickerFragment extends Fragment {
     private String filePath = ""; // Used to store image url
 
     private Button openFilePicker;
+    private ImageView imageView;
+
+    private Context mContext;
+
+    private NetworkImplementations mNetworkImplementations;
+    private FragmentManager fm;
 
     private OnImagePickerListener mListener;
 
@@ -82,6 +97,13 @@ public class FilePickerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_file_picker, container, false);
 
         openFilePicker = view.findViewById(R.id.file_picker);
+        imageView = view.findViewById(R.id.file_picker_imageview);
+
+        mContext = getContext();
+        fm = getFragmentManager();
+
+        // Setup mNetworkImplementations
+        mNetworkImplementations = new NetworkImplementations(mContext);
 
         openFilePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,11 +155,36 @@ public class FilePickerFragment extends Fragment {
 
                 File file = FileUtils.getFile(getContext(), uri);
                 filePath = file.getAbsolutePath();
-                Toast.makeText(getContext(), "Path = "+ filePath,Toast.LENGTH_LONG).show();
+//                imageView.setImageURI(uri);
+//                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                Toast.makeText(getContext(), "Path = "+ filePath,Toast.LENGTH_LONG).show();
 //                showImage(uri);
+
+                ReturnUploadPhoto returnUploadPhoto = new ReturnUploadPhoto() {
+                    @Override
+                    public void onSuccess(List<com.example.mapapp.POJO.File> files) {
+
+                        Toast.makeText(mContext,"ReturnUploadPhoto : success",Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure() {
+//                        Toast.makeText(mContext, "ReturnUploadPhoto : failed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onResponse() {
+                        //dialog.dismiss();
+                    }
+                };
+
+
+                mNetworkImplementations.uploadPhoto(filePath, returnUploadPhoto);
+
             }
         }
     }
+
 
 
     @Override

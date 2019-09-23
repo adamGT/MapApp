@@ -17,6 +17,8 @@ import com.example.mapapp.Features.CoordinatorFeatures.CoordinatorBasicFragment;
 import com.example.mapapp.Features.Dragging.ViewDraggingFragment;
 import com.example.mapapp.Features.FilePicker.FilePickerFragment;
 import com.example.mapapp.Features.GridCardsRecyclerView.CardsInGridRecyclerView;
+import com.example.mapapp.Features.GridCardsRecyclerView.FeatureDetailsCoordinator;
+import com.example.mapapp.Features.GridCardsRecyclerView.FeatureDetailsFragment;
 import com.example.mapapp.Features.GridCardsRecyclerView.FeaturesFragment;
 import com.example.mapapp.Features.UserGuide.GuideFragment;
 import com.example.mapapp.Features.Map.MapFragment;
@@ -40,7 +42,9 @@ public class MainActivity extends AppCompatActivity implements
         FilePickerFragment.OnImagePickerListener,
         CoordinatorBasicFragment.OnCoordinatorActionListener,
         CardsInGridRecyclerView.OnGridCardsListener,
-        FeaturesFragment.OnFeatureListener {
+        FeaturesFragment.OnFeatureListener,
+        FeatureDetailsCoordinator.OnFeatureInteractionListener,
+        FeatureDetailsFragment.FitureActivationListener {
 
 
     private FragmentManager fm = getSupportFragmentManager();
@@ -58,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements
     private ViewDraggingFragment viewDraggingFragment = ViewDraggingFragment.newInstance(null, null);
     private FilePickerFragment filePickerFragment = FilePickerFragment.newInstance(null, null);
     private CoordinatorBasicFragment coordinatorBasicFragment = CoordinatorBasicFragment.newInstance(null, null);
-    private CardsInGridRecyclerView cardsInGridRecyclerView = CardsInGridRecyclerView.newInstance();
+//    private CardsInGridRecyclerView cardsInGridRecyclerView = CardsInGridRecyclerView.newInstance();
 
 
     private enum Fragments {
@@ -192,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements
     }
     @Override
     public void onCardRecyclerClicked() {
-        MainUtills.navigateTo(R.id.container,cardsInGridRecyclerView,"replace",true,fm);
+        MainUtills.navigateTo(R.id.container,CardsInGridRecyclerView.newInstance(CardsInGridRecyclerView.LaunchMode.SETUP),"replace",true,fm);
     }
 
     @Override
@@ -214,7 +218,18 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onFeatureClicked() {
+    public void onFeatureClicked(String featureName,int resId) {
+        MainUtills.navigateTo(R.id.container, FeatureDetailsCoordinator.newInstance(featureName,resId),"replace",true,fm);
+//        MainUtills.navigateTo(R.id.container, FeatureDetailsFragment.newInstance(featureName,resId),"replace",true,fm);
+    }
+
+    @Override
+    public void onFeatureActivated() {
+
+    }
+
+    @Override
+    public void onActivated() {
 
     }
 

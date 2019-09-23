@@ -17,6 +17,7 @@ import com.example.mapapp.POJO.Feature;
 import com.example.mapapp.R;
 import com.example.mapapp.UIComponents.TitleView;
 import com.example.mapapp.UIComponents.TitleViewModel;
+import com.example.mapapp.Utils.ItemTouchListener;
 import com.example.mapapp.Utils.MainUtills;
 
 import java.util.ArrayList;
@@ -83,16 +84,31 @@ public class FeaturesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(
                 getContext(), LinearLayoutManager.VERTICAL, false));
 
-        features.add(new Feature("Feature 1", R.color.beez_code_background,true));
-        features.add(new Feature("Feature 2", R.color.beezprofessional,true));
-        features.add(new Feature("Feature 3", R.color.bottomSheetOptions,false));
-        features.add(new Feature("Feature 4", R.color.beezsocial,false));
-        features.add(new Feature("Feature 5", R.color.yellow,true));
+        features.add(new Feature("Enel Application Submission","Application submission module", R.drawable.feature_one,true));
+        features.add(new Feature("Feature 2","Feature 2 description ", R.drawable.feature_one,true));
+        features.add(new Feature("Feature 3","Feature 3 description ", R.drawable.feature_one,false));
+        features.add(new Feature("Feature 4","Feature 4 description ", R.drawable.feature_one,false));
+        features.add(new Feature("Feature 5","Feature 5 description ", R.drawable.feature_one,true));
 
         adapter = new FeatureListAdapter(getContext(),features);
 
         recyclerView.setAdapter(adapter);
 
+        recyclerView.addOnItemTouchListener(new ItemTouchListener(getContext(), recyclerView, new ItemTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+//                Toast.makeText(getContext(),moduleList.get(position).getModuleName(),Toast.LENGTH_LONG).show();
+                if(!(mListener == null)){
+                    mListener.onFeatureClicked(features.get(position).getFeatureTitle(),features.get(position).getFeatureImageId());
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, final int position) {
+
+            }
+        }));
 
         return view;
     }
@@ -126,6 +142,6 @@ public class FeaturesFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFeatureListener {
-        void onFeatureClicked();
+        void onFeatureClicked(String featureName,int resId);
     }
 }

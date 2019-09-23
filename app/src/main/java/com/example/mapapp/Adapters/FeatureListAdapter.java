@@ -40,7 +40,9 @@ public class FeatureListAdapter extends RecyclerView.Adapter<FeatureListAdapter.
         final Feature feature = this.features.get(position);
 
         holder.featureTitle.setText(feature.getFeatureTitle());
+        holder.featureDescription.setText(feature.getFeatureDescription());
         holder.featureImage.setImageResource(feature.getFeatureImageId());
+        holder.featureImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
         if(feature.isActive()){
             holder.featureActive.setText("Active");
             holder.featureActive.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
@@ -59,12 +61,13 @@ public class FeatureListAdapter extends RecyclerView.Adapter<FeatureListAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView featureTitle,featureActive;
+        public TextView featureTitle,featureActive,featureDescription;
         public ImageView featureImage,dotImage;
 
         public ViewHolder(@NonNull View view) {
             super(view);
             featureTitle = view.findViewById(R.id.feature_title);
+            featureDescription = view.findViewById(R.id.feature_title_description);
             featureActive = view.findViewById(R.id.feature_active);
             featureImage = view.findViewById(R.id.feature_image);
             dotImage = view.findViewById(R.id.dot_img);

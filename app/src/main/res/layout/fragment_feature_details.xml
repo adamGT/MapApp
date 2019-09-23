@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Features.CoordinatorFeatures.CoordinatorBasicFragment">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/next_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            custom:elevation="0dp"
+            custom:layout_constraintEnd_toEndOf="parent"
+            custom:layout_constraintStart_toStartOf="parent"
+            custom:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                custom:contentScrim="@color/quantum_grey_600"
+                custom:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+
+
+                <ImageView
+                    android:id="@+id/feature_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/tools" />
+
+
+                <androidx.appcompat.widget.Toolbar
+                    style="@style/ThemeOverlay.AppCompat.Light"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize" />
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_expand_more_black_18dp"
+            custom:backgroundTint="@color/quantum_grey_600"
+            custom:elevation="15dp"
+            custom:layout_anchor="@id/bar_layout"
+            custom:layout_anchorGravity="bottom|right|end" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            custom:layout_behavior="@string/appbar_scrolling_view_behavior"
+            custom:layout_constraintEnd_toEndOf="parent"
+            custom:layout_constraintStart_toStartOf="parent"
+            custom:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/nested_constraint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.example.mapapp.UIComponents.TitleView
+                    android:id="@+id/titleView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="27dp"
+                    android:layout_marginTop="16dp"
+                    custom:layout_constraintEnd_toEndOf="parent"
+                    custom:layout_constraintHorizontal_bias="1.0"
+                    custom:layout_constraintStart_toStartOf="parent"
+                    custom:layout_constraintTop_toTopOf="@+id/nested_constraint"
+                    custom:titleText="Feature 1" />
+
+                <TextView
+                    android:id="@+id/feature_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center"
+                    android:lineSpacingExtra="5dp"
+                    android:text="@string/lorem_ipsum"
+                    android:textSize="17sp"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    custom:layout_constraintBottom_toBottomOf="parent"
+                    custom:layout_constraintEnd_toEndOf="parent"
+                    custom:layout_constraintTop_toBottomOf="@+id/titleView" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/next_button"
+        style="@style/beez.Button"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="Activate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coordinator_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
+</androidx.constraintlayout.widget.ConstraintLayout>

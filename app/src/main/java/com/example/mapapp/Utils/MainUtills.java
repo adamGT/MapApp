@@ -16,6 +16,7 @@ public class MainUtills {
     public static void navigateTo(int layoutId, Fragment fragment, String addType, boolean addToBackstack, FragmentManager fm) {
 
         FragmentTransaction transaction = fm.beginTransaction();
+        transaction.setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
         if(addType.contentEquals("add")){
             transaction.add(layoutId, fragment);
         }else if(addType.contentEquals("replace")){

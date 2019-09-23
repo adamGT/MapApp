@@ -8,11 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.mapapp.Utils.MainUtills;
+import com.example.mapapp.storage.SharedPreferenceManager;
 
 import java.util.Calendar;
 
@@ -39,10 +41,13 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private Context mContext;
 
     public Button mButton,mCountryButton,mLangageButton,mPopUp,mAddToCalendar,
             mStepGuide,mBeeZCard,mShowcase,mDragging,mFilePicker,mCoordinator,
             mCardRecycler;
+    private TextView clearCache;
+
     private Toolbar toolbar;
     private OnHomeFragmentInteractionListener mListener;
 
@@ -83,6 +88,8 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        mContext = getContext();
+
         toolbar=view.findViewById(R.id.app_bar);
         MainUtills.setUpToolbar(toolbar,getActivity());
 
@@ -99,6 +106,8 @@ public class HomeFragment extends Fragment {
         mFilePicker=view.findViewById(R.id.file_picker_button);
         mCoordinator=view.findViewById(R.id.coordinator_button);
         mCardRecycler=view.findViewById(R.id.grid_card_button);
+
+        clearCache = view.findViewById(R.id.clear_cache_text);
 
         mCountryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,6 +211,13 @@ public class HomeFragment extends Fragment {
                 if(mListener != null){
                     mListener.onCardRecyclerClicked();
                 }
+            }
+        });
+
+        clearCache.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferenceManager.getInstance(mContext).clear();
             }
         });
 
