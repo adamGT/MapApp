@@ -1,20 +1,34 @@
 package com.example.mapapp.Features.ShowCaseView;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.mapapp.R;
 import com.example.mapapp.ShowCase.BeezMaterialShowCaseView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,9 +46,17 @@ public class ShowCaseViewFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private List<Integer> indexOfAt = new ArrayList<>();
+    private List<Integer> indexOfSpace = new ArrayList<>();
+    private List<String> userNames = new ArrayList<>();
+
+    private SpannableString ss;
+    private SpannableStringBuilder builder = new SpannableStringBuilder();
+
     private OnShowCaseViewListener mListener;
 
     private Button mShowCase;
+    private TextView spanningText;
 
     public ShowCaseViewFragment() {
         // Required empty public constructor
@@ -81,6 +103,11 @@ public class ShowCaseViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_show_case_view, container, false);
 
         mShowCase = view.findViewById(R.id.show_case_btn);
+        spanningText = view.findViewById(R.id.spanningText);
+
+        String text = "The meeting was @presented by @kirubel and Ashenafi in the hall";
+
+        setTextSpannable(text);
 
 
         BeezMaterialShowCaseView.Builder showCaseBuilder;
@@ -97,15 +124,75 @@ public class ShowCaseViewFragment extends Fragment {
         return view;
     }
 
-    private int layoutHeight(float percent){
+    private void setTextSpannable(String text){
+        ss = new SpannableString(text);
+        findUserName(text);
+        if(userNames != null){
+//            Toast.makeText(getContext(),"userName is not null", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),userNames.size()+" userNames", Toast.LENGTH_LONG).show();
+            for(int i=0;i<userNames.size();i++){
+                Toast.makeText(getContext(),userNames.get(i)+" userNames", Toast.LENGTH_LONG).show();
+                addSpannables(text,indexOfAt.get(i),indexOfSpace.get(i));
+            }
+            spanningText.setText(builder);
+            spanningText.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+    }
+
+    private void findUserName(String text){
+        int tempIndex = 0;
+        int countIndex = 1;
+
+        for(int i=0;i<=tempIndex;i++) {
+
+            if (text.indexOf('@') != -1 && text.charAt(text.indexOf('@')+1) != ' ') {
+
+                tempIndex = tempIndex + text.indexOf('@');
+                Toast.makeText(getContext(),"the first @ is at "+tempIndex, Toast.LENGTH_SHORT).show();
+                indexOfAt.add(tempIndex);
+                userNames.add(text.substring(indexOfAt.get(i), indexOfSpace.get(i)));
+                if (text.indexOf(' ',tempIndex) != -1) {
+                    indexOfSpace.add(text.indexOf(' ', tempIndex));
+                    userNames.add(text.substring(indexOfAt.get(i), indexOfSpace.get(i)));
+                    text = text.substring(indexOfAt.get(i));
+                }else{
+
+                    indexOfSpace.add(text.length());
+                    userNames.add(text.substring(indexOfAt.get(i)));
+                }
+            }else {
+                break;
+            }
+        }
+//        Toast.makeText(getContext(),""+text.indexOf('@'), Toast.LENGTH_LONG).show();
+    }
+
+    private void addSpannables(String text,int atIndex,int spaceIndex){
+//        Toast.makeText(getContext(),atIndex+" and "+spaceIndex+" addSpannables", Toast.LENGTH_LONG).show();
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                Toast.makeText(getContext(),userNames.get(0)+" link clicked", Toast.LENGTH_LONG).show();
+            }
+        };
+
+        builder.append(text,atIndex,spaceIndex);
+    }
+
+    private List getScreenSize(float percent){
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
+        List<Integer> screenParams =new ArrayList<>();
         int height = size.y;
-        int myheight= (int) (height*percent); // any percent of the screen you want
-//        Toast.makeText(mContext,"My Height: "+myheight+" Pix",Toast.LENGTH_SHORT).show();
+        int width = size.x;
+        int mHeight= (int) (height*percent); // any percent of the screen you want
+        int mWidth= (int) (width*percent); // any percent of the screen you want
 
-        return myheight;
+        screenParams.add(mWidth);
+        screenParams.add(mHeight);
+
+        return screenParams;
     }
 
     public int getSoftButtonsBarSizePort() {

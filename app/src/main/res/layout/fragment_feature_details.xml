@@ -30,7 +30,7 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                custom:contentScrim="@color/quantum_grey_600"
+                custom:contentScrim="@color/colorAccent"
                 custom:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
 
 
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:src="@drawable/ic_expand_more_black_18dp"
-            custom:backgroundTint="@color/quantum_grey_600"
+            custom:backgroundTint="@color/colorAccent"
             custom:elevation="15dp"
             custom:layout_anchor="@id/bar_layout"
             custom:layout_anchorGravity="bottom|right|end" />

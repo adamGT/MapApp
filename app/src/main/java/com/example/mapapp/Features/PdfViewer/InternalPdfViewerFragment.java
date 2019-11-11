@@ -1,47 +1,36 @@
-package com.example.mapapp.Features.GridCardsRecyclerView;
+package com.example.mapapp.Features.PdfViewer;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.mapapp.R;
-import com.example.mapapp.UIComponents.TitleView;
-import com.example.mapapp.UIComponents.TitleViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FeatureDetailsCoordinator.OnFeatureInteractionListener} interface
+ * {@link InternalPdfViewerFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FeatureDetailsCoordinator#newInstance} factory method to
+ * Use the {@link InternalPdfViewerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FeatureDetailsCoordinator extends Fragment {
+public class InternalPdfViewerFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
-    private TitleView titleView;
-    private ImageView featureImage;
+    private OnFragmentInteractionListener mListener;
 
-//    NestedScrollView
-//    FloatingActionButton
-
-    private String featureName;
-    private int resId;
-
-    private OnFeatureInteractionListener mListener;
-
-    public FeatureDetailsCoordinator() {
+    public InternalPdfViewerFragment() {
         // Required empty public constructor
     }
 
@@ -51,14 +40,14 @@ public class FeatureDetailsCoordinator extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FeatureDetailsCoordinator.
+     * @return A new instance of fragment InternalPdfViewerFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FeatureDetailsCoordinator newInstance(String param1, int param2) {
-        FeatureDetailsCoordinator fragment = new FeatureDetailsCoordinator();
+    public static InternalPdfViewerFragment newInstance(String param1, String param2) {
+        InternalPdfViewerFragment fragment = new InternalPdfViewerFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putInt(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,32 +56,30 @@ public class FeatureDetailsCoordinator extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            featureName = getArguments().getString(ARG_PARAM1);
-            resId = getArguments().getInt(ARG_PARAM2);
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_feature_details, container, false);
-
-        titleView = view.findViewById(R.id.titleView);
-        titleView.configure(new TitleViewModel(featureName));
-
-        featureImage =view.findViewById(R.id.feature_image);
-//        featureImage.setImageResource(resId);
-        featureImage.setImageResource(R.drawable.module_hiro);
-
-        return view;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_internal_pdf_viewer, container, false);
     }
 
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFeatureInteractionListener) {
-            mListener = (OnFeatureInteractionListener) context;
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -115,7 +102,8 @@ public class FeatureDetailsCoordinator extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFeatureInteractionListener {
-        void onFeatureActivated();
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 }
