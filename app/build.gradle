@@ -27,6 +27,7 @@ android {
 
     dependencies {
         def room_version = "2.1.0-alpha03"
+        def lifecycle_version = "2.1.0"
 
 
         implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -63,6 +64,9 @@ android {
         implementation "androidx.room:room-runtime:$room_version"
         annotationProcessor "androidx.room:room-compiler:$room_version"
 
+        implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+        annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
         //Glide
         implementation 'com.github.bumptech.glide:glide:3.7.0'
         // for retroofit
@@ -75,6 +79,15 @@ android {
 //        implementation 'com.pdfview:pdfview-android:1.0.0'
 //        implementation 'es.voghdev.pdfviewpager:library:1.0.6'
 
+        /* Dagger2 - We are going to use dagger.android which includes
+         * support for Activity and fragment injection so we need to include
+         * the following dependencies */
+//        implementation 'com.google.dagger:dagger-android:2.17'
+//        implementation 'com.google.dagger:dagger-android-support:2.17'
+//        annotationProcessor 'com.google.dagger:dagger-android-processor:2.17'
+//
+//        /* Dagger2 - default dependency */
+//        annotationProcessor 'com.google.dagger:dagger-compiler:2.17'
 
     }
 }

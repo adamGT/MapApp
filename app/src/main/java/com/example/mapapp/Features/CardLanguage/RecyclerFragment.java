@@ -6,12 +6,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.example.mapapp.Adapters.CountryListAdapter;
+import com.example.mapapp.Features.ROOM.AppDatabase;
+import com.example.mapapp.Features.ROOM.Item;
+import com.example.mapapp.Features.ROOM.ItemViewModel;
 import com.example.mapapp.R;
 
 import java.util.ArrayList;
@@ -33,11 +45,18 @@ public class RecyclerFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
+
+    private Context mContext;
+
     private String mParam1;
     private String mParam2;
 
     private RecyclerView mRecyclerView;
-    private CountryListAdapter adapter;
+
+    private Button mAddButton;
+    private EditText mAddEditText;
+
+    private ItemViewModel itemViewModel;
 
     private OnFragmentInteractionListener mListener;
 
@@ -78,30 +97,62 @@ public class RecyclerFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recycler, container, false);
 
+        mContext = getActivity();
+
+        mAddButton=view.findViewById(R.id.addButton);
+        mAddEditText=view.findViewById(R.id.inputOne);
 
         mRecyclerView=view.findViewById(R.id.country_recycler);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        List<String> country = new ArrayList<>();
-        country.add("Ethiopia");
-        country.add("Ethiopia");
-        country.add("Ethiopia");
-        country.add("Ethiopia");
-        adapter= new CountryListAdapter(getContext(),country);
-        adapter.setCountry(country);
 
+        final CountryListAdapter adapter = new CountryListAdapter();
         mRecyclerView.setAdapter(adapter);
 
-//        Toast.makeText(getContext(),country.get(1)+", "+country.get(2)+", "+country.get(3),Toast.LENGTH_LONG).show();
+        itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
+        itemViewModel.getAllItems().observe(this, new Observer<List<Item>>() {
+            @Override
+            public void onChanged(List<Item> items) {
+                adapter.addItems(items);
+            }
+        });
+
+        mAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addItem();
+            }
+        });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                if(direction == ItemTouchHelper.LEFT) {
+                    itemViewModel.delete(adapter.getItemAt(viewHolder.getAdapterPosition()));
+                }
+            }
+        }).attachToRecyclerView(mRecyclerView);
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    public void addItem(){
+        if(!mAddEditText.getText().toString().trim().isEmpty()){
+            Item item = new Item(mAddEditText.getText().toString());
+            itemViewModel.insert(item);
+            mAddEditText.setText("");
+
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+
+            imm.hideSoftInputFromWindow(mAddEditText.getWindowToken(), 0);
         }
     }
 

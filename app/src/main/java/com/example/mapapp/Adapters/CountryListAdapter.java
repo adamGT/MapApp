@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mapapp.Features.ROOM.Item;
 import com.example.mapapp.R;
 
 import java.util.List;
@@ -17,20 +18,11 @@ import java.util.List;
 
 public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.ViewHolder> {
 
-    private List<String> countries;
-    private Context mContext;
+    private List<Item> countries;
 
-    public CountryListAdapter(Context  mContext, List<String> countries) {
-        this.mContext=mContext;
+    public void addItems( List<Item> countries) {
         this.countries=countries;
-    }
-
-    public void setCountry(List<String> countries){
-        this.countries=countries;
-    }
-
-    public List<String> getCountry(){
-        return countries;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -44,15 +36,19 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull CountryListAdapter.ViewHolder holder, int position) {
-        final String item = this.countries.get(position);
-        Toast.makeText(mContext,countries.get(1)+", "+countries.get(2)+", "+countries.get(3),Toast.LENGTH_LONG).show();
+        final Item item = this.countries.get(position);
+//        Toast.makeText(mContext,countries.get(1)+", "+countries.get(2)+", "+countries.get(3),Toast.LENGTH_LONG).show();
 
-        holder.countryTextView.setText(item);
+        holder.countryTextView.setText(item.itemName);
     }
 
     @Override
     public int getItemCount() {
         return this.countries != null ? this.countries.size() : 0;
+    }
+
+    public Item getItemAt(int index){
+        return countries.get(index);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
